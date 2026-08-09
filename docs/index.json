@@ -1,0 +1,16 @@
+[
+  {
+    "numero": "001",
+    "fecha": "2026-08-09",
+    "titulo": "México, el nuevo hub global de la IA",
+    "resumen": "Mientras la guerra por la IA se intensifica, México ha emergido como la segunda potencia mundial en infraestructura para inteligencia artificial, solo superada por…",
+    "tip": {
+      "titulo": "Limpieza rápida con Python",
+      "herramienta": "Python",
+      "codigo": "import pandas as pd\n# Eliminar duplicados y rellenar nulos\ndf = df.drop_duplicates()\ndf['ventas'] = df['ventas'].fillna(0)\n# Convertir tipo de dato para ahorrar memoria\ndf['fecha'] = pd.to_datetime(df['fecha'])\nprint(df.info())",
+      "cuerpo": "Usa este bloque para estandarizar tus DataFrames antes de cualquier análisis; reduce errores de cálculo y mejora la integridad del modelo."
+    },
+    "url_json": "https://alonsols04.github.io/codigo-abierto/ediciones/001.json",
+    "url_html": "https://alonsols04.github.io/codigo-abierto/ediciones/001.html"
+  }
+]
