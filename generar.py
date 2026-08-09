@@ -9,6 +9,7 @@ CÓDIGO ABIERTO — Generador semanal (versión solo-web)
 
 import os
 import re
+import time
 import json
 import html
 import datetime
@@ -31,7 +32,9 @@ FEEDS = [
 ]
 
 MAX_ITEMS_POR_FEED = 8
-MODELO = "gemini-2.0-flash"
+MODELOS = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-2.5-flash-lite"]
+REINTENTOS = 3
+ESPERA_SEG = 30
 
 MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
          "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
@@ -82,8 +85,6 @@ NOTICIAS DE LA SEMANA:
 
 def generar_contenido(noticias):
     api_key = os.environ["GEMINI_API_KEY"]
-    url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
-           f"{MODELO}:generateContent?key={api_key}")
     cuerpo_noticias = "\n".join(
         f"- [{n['fuente']}] {n['titulo']} :: {n['resumen']} :: {n['enlace']}"
         for n in noticias
@@ -92,11 +93,30 @@ def generar_contenido(noticias):
         "contents": [{"parts": [{"text": PROMPT + cuerpo_noticias}]}],
         "generationConfig": {"temperature": 0.7, "maxOutputTokens": 4000},
     }
-    r = requests.post(url, json=payload, timeout=120)
-    r.raise_for_status()
-    texto = r.json()["candidates"][0]["content"]["parts"][0]["text"]
-    texto = re.sub(r"^```(json)?|```$", "", texto.strip(), flags=re.MULTILINE).strip()
-    return json.loads(texto)
+    ultimo_error = None
+    for modelo in MODELOS:
+        url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
+               f"{modelo}:generateContent?key={api_key}")
+        for intento in range(1, REINTENTOS + 1):
+            try:
+                print(f"Intentando con {modelo} (intento {intento}/{REINTENTOS})...")
+                r = requests.post(url, json=payload, timeout=120)
+                if r.status_code == 429:
+                    print(f"  -> 429 (limite de cuota). Esperando {ESPERA_SEG}s...")
+                    time.sleep(ESPERA_SEG)
+                    continue
+                r.raise_for_status()
+                texto = r.json()["candidates"][0]["content"]["parts"][0]["text"]
+                texto = re.sub(r"^```(json)?|```$", "", texto.strip(),
+                               flags=re.MULTILINE).strip()
+                print(f"  -> OK con {modelo}")
+                return json.loads(texto)
+            except Exception as ex:
+                ultimo_error = ex
+                print(f"  -> fallo: {ex}")
+                time.sleep(5)
+        print(f"{modelo} agotado, probando siguiente modelo...")
+    raise SystemExit(f"Ningun modelo de Gemini respondio. Ultimo error: {ultimo_error}")
 
 # ---------------------------------------------------------------- 3. HTML ---
 
