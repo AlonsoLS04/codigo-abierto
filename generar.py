@@ -56,6 +56,22 @@ FEEDS = [
     "https://www.analyticsvidhya.com/feed/",
 ]
 
+# Fuentes centradas en automatizacion, RPA y transformacion de procesos.
+# La seccion de automatizacion solo admite casos reales, asi que necesita mas
+# material: de estos feeds se leen mas titulares que del resto.
+# Si alguno aparece con 0 entradas en el log dos semanas seguidas, quitalo.
+FEEDS_AUTOMATIZACION = [
+    "https://zapier.com/blog/feeds/latest/",
+    "https://blog.n8n.io/rss/",
+    "https://www.uipath.com/blog/rss.xml",
+    "https://devblogs.microsoft.com/powerplatform/feed/",
+    "https://www.cio.com/feed/",
+    "https://venturebeat.com/category/automation/feed/",
+    "https://www.computerweekly.com/rss/IT-management.xml",
+]
+
+MAX_ITEMS_AUTOMATIZACION = 12
+
 MAX_ITEMS_POR_FEED = 8
 MODELOS = ["gemini-3.5-flash", "gemini-3-flash", "gemini-3.1-flash-lite"]
 REINTENTOS = 3
@@ -67,21 +83,37 @@ MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
 # ------------------------------------------------------------ 1. NOTICIAS ---
 
 def recolectar_noticias():
-    items = []
-    for url in FEEDS:
+    """Lee todos los feeds e informa en el log cuántas entradas dio cada uno.
+    Si un feed aparece con 0 durante varias semanas, quítalo de FEEDS."""
+    items, mudos = [], []
+    plan = ([(u, MAX_ITEMS_POR_FEED, False) for u in FEEDS]
+            + [(u, MAX_ITEMS_AUTOMATIZACION, True) for u in FEEDS_AUTOMATIZACION])
+    for url, tope, es_auto in plan:
         try:
             feed = feedparser.parse(url)
-            for e in feed.entries[:MAX_ITEMS_POR_FEED]:
+            entradas = feed.entries[:tope]
+            for e in entradas:
                 resumen = re.sub(r"<[^>]+>", "", e.get("summary", ""))[:300]
                 items.append({
                     "titulo": e.get("title", "").strip(),
                     "resumen": resumen.strip(),
                     "enlace": e.get("link", ""),
                     "fuente": feed.feed.get("title", url),
+                    "automatizacion": es_auto,
                 })
+            etq = " [auto]" if es_auto else ""
+            print(f"  {len(entradas):2} entradas ·{etq} {url}")
+            if not entradas:
+                mudos.append(url)
         except Exception as ex:
-            print(f"[aviso] feed falló {url}: {ex}")
-    print(f"Noticias recolectadas: {len(items)}")
+            print(f"  [aviso] feed falló {url}: {ex}")
+            mudos.append(url)
+    n_auto = sum(1 for i in items if i.get("automatizacion"))
+    print(f"Noticias recolectadas: {len(items)} (de fuentes de automatización: {n_auto})")
+    if mudos:
+        print("Feeds sin resultados (revísalos si se repite):")
+        for u in mudos:
+            print(f"  - {u}")
     return items
 
 # -------------------------------------------------------------- 2. GEMINI ---
@@ -100,6 +132,7 @@ Responde ÚNICAMENTE con un JSON válido, sin markdown, sin ```, con esta forma:
   "ia": [{"titulo": "...", "cuerpo": "1-2 párrafos", "angulo_latam": "...", "enlace": "url", "fuente": "..."}],
   "marketing": [{"titulo": "...", "cuerpo": "...", "angulo_latam": "...", "enlace": "url", "fuente": "..."}],
   "datos": [{"titulo": "...", "cuerpo": "1-2 párrafos", "angulo_latam": "...", "enlace": "url", "fuente": "..."}],
+  "automatizacion": [{"titulo": "...", "cuerpo": "1-2 párrafos", "antes_despues": "el proceso manual que se reemplaza y con qué queda reemplazado", "ahorro": "estimación corta del tiempo o esfuerzo que se recupera, ej: 6 horas al mes", "angulo_latam": "...", "enlace": "url", "fuente": "..."}],
   "tip_analista": {"titulo": "nombre corto del tip", "codigo": "el snippet de codigo real, con saltos de linea reales, max 8 lineas", "cuerpo": "explicación práctica en 1-2 frases", "herramienta": "Oracle SQL | DAX | Python | Power Query | Excel"},
   "dato": {"cifra": "ej: 73%", "contexto": "una frase que explica la cifra"},
   "para_llevar": "una reflexión final de 2-3 frases, accionable"
@@ -108,6 +141,28 @@ Reglas: "ia" con 2 historias, "marketing" con 2 historias, "datos" con 2 histori
 sobre análisis de datos, ciencia de datos, BI o herramientas de datos (elígelas de
 las fuentes tipo KDnuggets, Towards Data Science o Analytics Vidhya si están en la
 lista).
+
+"automatizacion" lleva hasta 2 historias, SIEMPRE basadas en noticias de la lista
+de abajo. Las noticias marcadas con [AUTO] vienen de fuentes especializadas en
+automatización: revísalas primero, aunque también puedes usar cualquier otra de la
+lista si califica. Busca noticias sobre:
+herramientas de automatización de flujos, RPA, integraciones entre sistemas, agentes
+que ejecutan tareas, o casos donde una empresa o equipo real implementó tecnología
+para dejar de hacer un proceso a mano. El foco no es la novedad tecnológica sino el
+efecto operativo: qué tarea repetitiva desaparece y qué error humano se evita.
+
+REGLA CRÍTICA de esta sección: prohibido inventar casos. Cada historia debe
+corresponder a una noticia concreta de la lista, con su "enlace" y "fuente" reales
+copiados textualmente. Si en la lista solo hay UNA noticia que califique, devuelve
+un array de UNA sola historia. Si no hay NINGUNA, devuelve un array vacío: []. Es
+mejor una sección vacía que un caso fabricado.
+
+El campo "antes_despues" describe en una frase el proceso manual y con qué queda
+reemplazado, según lo que dice la noticia (ej: "consolidar siete Excel a mano cada
+mes → una consulta programada que deja el archivo listo"). El campo "ahorro" solo
+se llena si la noticia menciona una cifra de tiempo, costo o volumen de trabajo
+ahorrado; si la noticia no la da, deja "ahorro" como cadena vacía. No estimes ni
+inventes cifras.
 
 El "tip_analista" es un truco práctico de análisis de datos que un analista pueda
 aplicar hoy mismo; puede ser de tu conocimiento, no necesita venir de las noticias.
@@ -126,8 +181,11 @@ NOTICIAS DE LA SEMANA:
 
 def generar_contenido(noticias):
     api_key = os.environ["GEMINI_API_KEY"]
+    # El marcador [AUTO] señala noticias de fuentes de automatización, para que
+    # el modelo sepa dónde buscar casos de la sección "automatizacion".
     cuerpo_noticias = "\n".join(
-        f"- [{n['fuente']}] {n['titulo']} :: {n['resumen']} :: {n['enlace']}"
+        f"- {'[AUTO] ' if n.get('automatizacion') else ''}"
+        f"[{n['fuente']}] {n['titulo']} :: {n['resumen']} :: {n['enlace']}"
         for n in noticias
     )
     payload = {
@@ -195,8 +253,67 @@ def siguiente_numero(indice):
         return 1
     return max(int(e["numero"]) for e in indice) + 1
 
-# ------------------------------------------------- RESALTADO DE SINTAXIS ----
+# ----------------------------------------------- VALIDACION DE ENLACES ------
 
+def _normalizar_url(u):
+    """Quita parametros de tracking y barras finales para comparar."""
+    u = (u or "").strip()
+    u = re.sub(r"[?#].*$", "", u)
+    u = re.sub(r"/+$", "", u)
+    return u.lower()
+
+def validar_enlaces(contenido, noticias):
+    """Comprueba que cada historia apunte a una noticia realmente recolectada.
+
+    - En "automatizacion" la historia se DESCARTA si el enlace no existe: esa
+      seccion solo admite casos reales verificables.
+    - En las demas secciones se vacian "enlace" y "fuente" en lugar de borrar la
+      historia, para no dejar la edicion incompleta por un enlace mal copiado.
+    Devuelve (contenido, informe) con el detalle de lo corregido.
+    """
+    validos = {_normalizar_url(n["enlace"]) for n in noticias if n.get("enlace")}
+    informe = []
+
+    # Portada y secciones tolerantes
+    for clave in ("ia", "marketing", "datos"):
+        for h in contenido.get(clave, []) or []:
+            if h.get("enlace") and _normalizar_url(h["enlace"]) not in validos:
+                informe.append(f"  [enlace inventado] {clave}: {h.get('titulo','')[:60]}")
+                h["enlace"] = ""
+                h["fuente"] = ""
+
+    portada = contenido.get("portada") or {}
+    if portada.get("enlace") and _normalizar_url(portada["enlace"]) not in validos:
+        informe.append("  [enlace inventado] portada")
+        portada["enlace"] = ""
+        portada["fuente"] = ""
+
+    # Automatizacion: exige noticia real, sin excepciones
+    originales = contenido.get("automatizacion", []) or []
+    filtradas = []
+    for h in originales:
+        url = _normalizar_url(h.get("enlace", ""))
+        if not url:
+            informe.append(f"  [descartada, sin enlace] automatizacion: {h.get('titulo','')[:60]}")
+            continue
+        if url not in validos:
+            informe.append(f"  [descartada, enlace inventado] automatizacion: {h.get('titulo','')[:60]}")
+            continue
+        filtradas.append(h)
+    contenido["automatizacion"] = filtradas
+
+    if informe:
+        print("Validación de enlaces:")
+        for linea in informe:
+            print(linea)
+    if originales and not filtradas:
+        print("  Aviso: ninguna historia de automatización superó la validación; "
+              "la sección no aparecerá en esta edición.")
+    else:
+        print(f"Automatización: {len(filtradas)} de {len(originales)} historias verificadas.")
+    return contenido
+
+# ------------------------------------------------- RESALTADO DE SINTAXIS ----
 KW_SQL = {
     "select","from","where","group","by","order","having","join","left","right",
     "inner","outer","on","as","and","or","not","in","is","null","case","when",
@@ -449,6 +566,17 @@ footer{border-top:1px solid var(--line);}
 @media(min-width:1000px){.rejilla-tip{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);}}
 
 /* Animación de entrada */
+/* Automatizacion: antes/despues y ahorro */
+.flujo{margin-top:18px;border-left:2px solid #7fe0a8;background:rgba(20,50,38,.35);
+  border-radius:12px;padding:14px 16px;}
+.flujo .t{font-family:'JetBrains Mono',monospace;font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.2em;color:#7fe0a8;margin:0;}
+.flujo p{margin:8px 0 0;font-size:14px;color:rgba(243,242,247,.88);line-height:1.6;}
+.ahorro{display:inline-flex;align-items:center;gap:7px;margin-top:14px;
+  border:1px solid rgba(127,224,168,.4);background:rgba(20,50,38,.3);
+  border-radius:999px;padding:6px 14px;font-size:13px;color:#a8ebc4;}
+.ahorro .et2{font-family:'JetBrains Mono',monospace;font-size:10px;
+  text-transform:uppercase;letter-spacing:.14em;color:#7fe0a8;}
 /* Movil: codigo mas compacto y menos padding lateral */
 @media(max-width:520px){
   .snip pre{font-size:11.5px;padding:14px;line-height:1.7;}
@@ -563,8 +691,8 @@ TEMAS = [
      "Casos reales, prompts que funcionan y las herramientas que sí vale la pena probar esta semana."),
     ("02", "Análisis de datos y tips prácticos",
      "SQL, Power BI y Python: consultas, modelos y trucos que puedes usar el mismo lunes."),
-    ("03", "Automatización y productividad",
-     "Flujos que eliminan trabajo repetitivo: scripts, integraciones y pequeños hacks de rutina."),
+    ("03", "Automatización y menos trabajo manual",
+     "Casos de procesos operativos que dejaron de hacerse a mano: qué se automatizó, con qué y cuántas horas se recuperaron."),
     ("04", "Marketing digital y tendencias LATAM",
      "Qué está funcionando en la región, con datos y sin humo de gurús."),
 ]
@@ -776,18 +904,41 @@ def render_landing(indice):
 # --------------------------------------------------------- 5. EDICION HTML --
 
 def html_historia(h, etiqueta, delay):
+    # Bloque antes/despues: solo lo traen las historias de automatizacion
+    flujo = ""
+    if h.get("antes_despues"):
+        flujo = f"""
+          <div class="flujo">
+            <p class="t">De manual a automático</p>
+            <p>{esc(h['antes_despues'])}</p>
+          </div>"""
+
+    ahorro = ""
+    if h.get("ahorro"):
+        ahorro = f"""
+          <div><span class="ahorro"><span class="et2">Ahorro</span> {esc(h['ahorro'])}</span></div>"""
+
+    # Si la historia no tiene fuente (caso de automatizacion sin noticia), no
+    # se muestra un enlace vacio
+    enlace = ""
+    if h.get("enlace") and h.get("fuente"):
+        enlace = f"""
+          <a class="leer" href="{esc(h['enlace'])}" target="_blank" rel="noopener">
+            Leer más en {esc(h['fuente'])} →</a>"""
+
     return f"""
       <div class="rev" style="transition-delay:{delay}ms">
         <article class="historia">
           <span class="et">{esc(etiqueta)}</span>
           <h3>{esc(h.get('titulo'))}</h3>
           {parrafos(h.get('cuerpo'))}
+          {flujo}
+          {ahorro}
           <div class="latam">
             <p class="t">Ángulo LATAM</p>
             <p>{esc(h.get('angulo_latam'))}</p>
           </div>
-          <a class="leer" href="{esc(h.get('enlace',''))}" target="_blank" rel="noopener">
-            Leer más en {esc(h.get('fuente',''))} →</a>
+          {enlace}
         </article>
       </div>"""
 
@@ -871,14 +1022,14 @@ def render_edicion(c, numero_str, fecha_iso, indice):
     fila_tip = ""
     if bloque_tip or bloque_dato:
         fila_tip = f"""
-  <section class="bloque" style="padding:64px 0">
+  <section class="bloque bloque-alt" style="padding:64px 0">
     <div class="wrap rejilla-tip">{bloque_tip}{bloque_dato}</div>
   </section>"""
 
     bloque_llevar = ""
     if c.get("para_llevar"):
         bloque_llevar = f"""
-  <section class="bloque bloque-alt" style="padding:72px 0">
+  <section class="bloque" style="padding:72px 0">
     <div class="wrap-sm" style="text-align:center">
       <div class="rev">
         <p class="kicker">Para llevar</p>
@@ -930,6 +1081,7 @@ def render_edicion(c, numero_str, fecha_iso, indice):
 {html_seccion_historias("Inteligencia artificial", "IA", c.get("ia", []), alt=True)}
 {html_seccion_historias("Marketing", "Marketing", c.get("marketing", []))}
 {html_seccion_historias("Datos", "Datos", c.get("datos", []), alt=True)}
+{html_seccion_historias("Automatización", "Automatización", c.get("automatizacion", []))}
 {fila_tip}
 {bloque_llevar}
 {bloque_otras}
@@ -961,6 +1113,7 @@ def main():
         raise SystemExit("No se pudieron recolectar noticias; se aborta.")
 
     contenido = generar_contenido(noticias)
+    contenido = validar_enlaces(contenido, noticias)
 
     # --- Numeración e historial ---
     indice = cargar_indice()
@@ -1003,6 +1156,7 @@ def main():
             "ia": contenido.get("ia", []),
             "marketing": contenido.get("marketing", []),
             "datos": contenido.get("datos", []),
+            "automatizacion": contenido.get("automatizacion", []),
             "tip_analista": contenido.get("tip_analista", {}),
             "dato": contenido.get("dato", {}),
             "para_llevar": contenido.get("para_llevar", ""),
