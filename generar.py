@@ -5,6 +5,8 @@ CÓDIGO ABIERTO — Generador semanal (versión solo-web)
 2) Pide a Gemini (free tier) que redacte la edición en JSON
 3) Renderiza el HTML y SOBREESCRIBE docs/index.html
    -> La página siempre muestra solo las noticias de esta semana.
+4) Archiva la edición en docs/ediciones/NNN.html y actualiza
+   docs/index.json con el historial completo (para consumir desde Lovable).
 """
 
 import os
@@ -22,6 +24,11 @@ from zoneinfo import ZoneInfo
 
 RAIZ = Path(__file__).parent
 DIR_DOCS = RAIZ / "docs"
+DIR_EDICIONES = DIR_DOCS / "ediciones"
+ARCHIVO_INDEX = DIR_DOCS / "index.json"
+
+# ⚠️ Reemplaza esto con tu URL real de GitHub Pages (sin "/" al final)
+URL_BASE = "https://alonsols04.github.io/codigo-abierto"
 
 FEEDS = [
     "https://techcrunch.com/feed/",
@@ -219,6 +226,46 @@ def render_html(c, ahora):
 </body>
 </html>"""
 
+# ------------------------------------------------------------ 4. INDEX JSON ---
+
+def cargar_indice():
+    if ARCHIVO_INDEX.exists():
+        return json.loads(ARCHIVO_INDEX.read_text(encoding="utf-8"))
+    return []
+
+def siguiente_numero(indice):
+    if not indice:
+        return 1
+    return max(int(e["numero"]) for e in indice) + 1
+
+def resumen_corto(texto, limite=160):
+    texto = texto.strip()
+    return texto if len(texto) <= limite else texto[:limite].rsplit(" ", 1)[0] + "…"
+
+def actualizar_indice(contenido, ahora, salida_html):
+    """Archiva la edición actual en docs/ediciones/NNN.html
+    y agrega la entrada correspondiente a docs/index.json."""
+    DIR_EDICIONES.mkdir(parents=True, exist_ok=True)
+    indice = cargar_indice()
+    numero = siguiente_numero(indice)
+    numero_str = f"{numero:03d}"
+
+    # Guarda copia archivada de esta edición
+    (DIR_EDICIONES / f"{numero_str}.html").write_text(salida_html, encoding="utf-8")
+
+    nueva_entrada = {
+        "numero": numero_str,
+        "fecha": ahora.strftime("%Y-%m-%d"),
+        "titulo": contenido["portada"]["titulo"],
+        "resumen": resumen_corto(contenido["portada"]["cuerpo"]),
+        "url": f"{URL_BASE}/ediciones/{numero_str}.html",
+    }
+    indice.insert(0, nueva_entrada)  # más reciente primero
+    ARCHIVO_INDEX.write_text(
+        json.dumps(indice, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    print(f"Edición #{numero_str} archivada y agregada a index.json")
+
 # ----------------------------------------------------------------- MAIN -----
 
 def main():
@@ -232,9 +279,12 @@ def main():
     contenido = generar_contenido(noticias)
     salida = render_html(contenido, ahora)
 
-    # Sobreescribe la página: solo existe la edición de esta semana
+    # Página principal: siempre la edición más reciente
     (DIR_DOCS / "index.html").write_text(salida, encoding="utf-8")
     print("Página actualizada: docs/index.html")
+
+    # Archivo + registro histórico para el sitio de Lovable
+    actualizar_indice(contenido, ahora, salida)
 
 if __name__ == "__main__":
     main()
