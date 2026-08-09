@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-CÓDIGO ABIERTO — Generador semanal (versión solo-web)
+CÓDIGO ABIERTO — Generador semanal
 1) Lee titulares recientes desde feeds RSS
 2) Pide a Gemini (free tier) que redacte la edición en JSON
-3) Renderiza el HTML y SOBREESCRIBE docs/index.html
-   -> La página siempre muestra solo las noticias de esta semana.
-4) Archiva la edición en docs/ediciones/NNN.html y actualiza
-   docs/index.json con el historial completo (para consumir desde Lovable).
+3) Renderiza el HTML y actualiza docs/index.html (edición más reciente)
+4) Archiva la edición:
+   - docs/ediciones/NNN.html  -> respaldo legible en GitHub Pages
+   - docs/ediciones/NNN.json  -> contenido completo para consumir desde Lovable
+   - docs/index.json          -> lista ligera de todas las ediciones (historial)
 """
 
 import os
@@ -27,7 +28,6 @@ DIR_DOCS = RAIZ / "docs"
 DIR_EDICIONES = DIR_DOCS / "ediciones"
 ARCHIVO_INDEX = DIR_DOCS / "index.json"
 
-# ⚠️ Reemplaza esto con tu URL real de GitHub Pages (sin "/" al final)
 URL_BASE = "https://alonsols04.github.io/codigo-abierto"
 
 FEEDS = [
@@ -226,11 +226,16 @@ def render_html(c, ahora):
 </body>
 </html>"""
 
-# ------------------------------------------------------------ 4. INDEX JSON ---
+# ------------------------------------------------------- 4. ARCHIVO / JSON ---
 
 def cargar_indice():
+    """Lee el historial existente. Devuelve lista vacía si aún no existe."""
     if ARCHIVO_INDEX.exists():
-        return json.loads(ARCHIVO_INDEX.read_text(encoding="utf-8"))
+        try:
+            return json.loads(ARCHIVO_INDEX.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            print("[aviso] index.json corrupto; se reinicia el historial.")
+            return []
     return []
 
 def siguiente_numero(indice):
@@ -239,32 +244,53 @@ def siguiente_numero(indice):
     return max(int(e["numero"]) for e in indice) + 1
 
 def resumen_corto(texto, limite=160):
-    texto = texto.strip()
-    return texto if len(texto) <= limite else texto[:limite].rsplit(" ", 1)[0] + "…"
+    texto = (texto or "").strip()
+    if len(texto) <= limite:
+        return texto
+    return texto[:limite].rsplit(" ", 1)[0] + "…"
 
-def actualizar_indice(contenido, ahora, salida_html):
-    """Archiva la edición actual en docs/ediciones/NNN.html
-    y agrega la entrada correspondiente a docs/index.json."""
+def archivar_edicion(contenido, ahora, salida_html):
+    """Guarda la edición como HTML + JSON completo y actualiza el historial."""
     DIR_EDICIONES.mkdir(parents=True, exist_ok=True)
     indice = cargar_indice()
     numero = siguiente_numero(indice)
     numero_str = f"{numero:03d}"
+    fecha_iso = ahora.strftime("%Y-%m-%d")
 
-    # Guarda copia archivada de esta edición
+    # a) Respaldo HTML legible en GitHub Pages
     (DIR_EDICIONES / f"{numero_str}.html").write_text(salida_html, encoding="utf-8")
 
-    nueva_entrada = {
+    # b) Contenido completo en JSON (lo que consume Lovable)
+    edicion_completa = {
         "numero": numero_str,
-        "fecha": ahora.strftime("%Y-%m-%d"),
+        "fecha": fecha_iso,
+        "titulo": contenido["portada"]["titulo"],
+        "portada": contenido["portada"],
+        "ia": contenido.get("ia", []),
+        "marketing": contenido.get("marketing", []),
+        "datos": contenido.get("datos", []),
+        "tip_analista": contenido.get("tip_analista", {}),
+        "dato": contenido.get("dato", {}),
+        "para_llevar": contenido.get("para_llevar", ""),
+    }
+    (DIR_EDICIONES / f"{numero_str}.json").write_text(
+        json.dumps(edicion_completa, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+
+    # c) Historial ligero para el listado
+    indice.insert(0, {
+        "numero": numero_str,
+        "fecha": fecha_iso,
         "titulo": contenido["portada"]["titulo"],
         "resumen": resumen_corto(contenido["portada"]["cuerpo"]),
-        "url": f"{URL_BASE}/ediciones/{numero_str}.html",
-    }
-    indice.insert(0, nueva_entrada)  # más reciente primero
+        "url_json": f"{URL_BASE}/ediciones/{numero_str}.json",
+        "url_html": f"{URL_BASE}/ediciones/{numero_str}.html",
+    })
     ARCHIVO_INDEX.write_text(
         json.dumps(indice, ensure_ascii=False, indent=2), encoding="utf-8"
     )
-    print(f"Edición #{numero_str} archivada y agregada a index.json")
+
+    print(f"Edición #{numero_str} archivada (html + json) · historial: {len(indice)} ediciones")
 
 # ----------------------------------------------------------------- MAIN -----
 
@@ -283,8 +309,8 @@ def main():
     (DIR_DOCS / "index.html").write_text(salida, encoding="utf-8")
     print("Página actualizada: docs/index.html")
 
-    # Archivo + registro histórico para el sitio de Lovable
-    actualizar_indice(contenido, ahora, salida)
+    # Archivo histórico completo
+    archivar_edicion(contenido, ahora, salida)
 
 if __name__ == "__main__":
     main()
