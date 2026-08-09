@@ -3,122 +3,424 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Código Abierto #001 — México, el epicentro global de la infraestructura IA</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<title>Edición #001 — México, el epicentro global de la infraestructura IA | Código Abierto</title>
+<meta name="description" content="Mientras la guerra por el dominio de la IA se libra en el software, la batalla real ocurre en la infraestructura. México se ha consolidado como la…">
+<meta name="author" content="Código Abierto">
+<link rel="canonical" href="https://alonsols04.github.io/codigo-abierto/ediciones/001.html">
+<meta property="og:title" content="Edición #001 — México, el epicentro global de la infraestructura IA | Código Abierto">
+<meta property="og:description" content="Mientras la guerra por el dominio de la IA se libra en el software, la batalla real ocurre en la infraestructura. México se ha consolidado como la…">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#12111c; --fg:#f3f2f7; --card:#1d1b2b; --card2:#262338;
+  --muted:#a9a5be; --line:#332f47; --terminal:#0e0d16;
+  --violeta:#9b6cf5; --azul:#4f9dfb;
+  --kw:#c39cf8; --str:#7fe0a8; --fn:#8ec2fb; --cm:#8d88a5;
+  --grad:linear-gradient(120deg,#9b6cf5,#4f9dfb);
+}
+*{box-sizing:border-box;border-color:var(--line);}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font-family:'DM Sans',system-ui,-apple-system,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;line-height:1.6;}
+h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.03em;
+  line-height:1.12;margin:0;}
+a{color:inherit;}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px;}
+.wrap-sm{max-width:760px;margin:0 auto;padding:0 20px;}
+.grad{background-image:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.muted{color:var(--muted);}
+
+/* Encabezado */
+.top{display:flex;align-items:center;justify-content:space-between;
+  max-width:1120px;margin:0 auto;padding:22px 20px;}
+.marca{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;
+  letter-spacing:-.02em;text-decoration:none;}
+.btn-borde{display:inline-block;border:1px solid var(--line);border-radius:999px;
+  padding:9px 18px;font-size:14px;font-weight:500;color:var(--muted);
+  text-decoration:none;transition:.25s;}
+.btn-borde:hover{border-color:var(--violeta);color:var(--fg);}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:56px 56px;}
+.hero .halo{position:absolute;top:-160px;left:50%;transform:translateX(-50%);
+  width:380px;height:380px;border-radius:50%;background:rgba(155,108,245,.28);
+  filter:blur(120px);pointer-events:none;}
+.hero-in{position:relative;max-width:760px;margin:0 auto;padding:88px 20px;text-align:center;}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:11.5px;text-transform:uppercase;
+  letter-spacing:.3em;color:var(--azul);margin:0;}
+.hero h1{font-size:clamp(42px,9vw,74px);font-weight:700;margin:24px 0 0;}
+.lede{font-size:clamp(17px,2.4vw,20px);color:var(--muted);margin:22px auto 0;max-width:34rem;}
+
+/* Secciones */
+section{scroll-margin-top:24px;}
+.bloque{padding:88px 0;}
+.bloque-alt{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:rgba(38,35,56,.35);}
+.h2{font-size:clamp(27px,4.4vw,38px);font-weight:700;}
+.sub{color:var(--muted);margin:14px 0 0;max-width:34rem;}
+
+/* Tarjetas de temas */
+.rejilla-2{display:grid;gap:18px;margin-top:44px;}
+@media(min-width:640px){.rejilla-2{grid-template-columns:1fr 1fr;}}
+.tarjeta{height:100%;border:1px solid var(--line);background:var(--card);
+  border-radius:18px;padding:26px;transition:border-color .3s;}
+.tarjeta:hover{border-color:rgba(155,108,245,.6);}
+.num{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--violeta);}
+.tarjeta h3{font-size:20px;font-weight:600;margin:16px 0 0;}
+.tarjeta p{font-size:14.5px;color:var(--muted);margin:12px 0 0;}
+
+/* Snippets */
+.rejilla-3{display:grid;gap:18px;margin-top:44px;}
+@media(min-width:1000px){.rejilla-3{grid-template-columns:repeat(3,1fr);}}
+.snip{display:flex;flex-direction:column;height:100%;overflow:hidden;
+  border:1px solid var(--line);background:var(--card);border-radius:18px;}
+.snip-top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;
+  align-items:center;padding:15px 18px;border-bottom:1px solid var(--line);}
+.snip-lbl{font-size:11px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.18em;color:var(--violeta);margin:0;}
+.snip-top h3{font-size:16px;font-weight:600;margin:5px 0 0;}
+.chip{flex-shrink:0;border:1px solid var(--line);border-radius:999px;padding:4px 12px;
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.05em;color:var(--muted);white-space:nowrap;}
+.snip pre{flex:1;margin:0;padding:18px;background:var(--terminal);overflow-x:auto;
+  font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.75;}
+.snip-pie{border-top:1px solid var(--line);padding:15px 18px;font-size:13.5px;color:var(--muted);margin:0;}
+.kw{color:var(--kw);} .str{color:var(--str);} .fn{color:var(--fn);}
+.cm{color:var(--cm);font-style:italic;} .nm{color:var(--azul);}
+
+/* Listado de ediciones */
+.lista{list-style:none;margin:44px 0 0;padding:0;border-top:1px solid var(--line);}
+.lista li{border-bottom:1px solid var(--line);}
+.lista a{display:grid;gap:10px;padding:26px 10px;text-decoration:none;transition:background .3s;}
+@media(min-width:640px){.lista a{grid-template-columns:9.5rem minmax(0,1fr);gap:32px;}}
+.lista a:hover{background:rgba(38,35,56,.5);}
+.meta{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--muted);}
+.meta .n{color:var(--violeta);}
+@media(min-width:640px){.meta .f{display:block;margin-top:4px;}}
+.lista h3{font-size:20px;font-weight:600;}
+.lista p{font-size:14.5px;color:var(--muted);margin:9px 0 0;}
+.flecha{display:inline-block;margin-top:12px;font-size:14px;font-weight:500;color:var(--azul);}
+.vacio{margin-top:40px;border:1px solid var(--line);background:var(--card);
+  border-radius:18px;padding:30px;text-align:center;color:var(--muted);}
+
+/* Sobre mí */
+.dos-col{display:grid;gap:36px;}
+@media(min-width:1000px){.dos-col{grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);}}
+.dos-col .prosa{font-size:17.5px;color:var(--muted);margin:0 0 18px;}
+.dos-col .prosa strong{color:var(--fg);font-weight:500;}
+
+/* Formulario */
+.form{width:100%;}
+.form-fila{display:grid;gap:12px;}
+@media(min-width:520px){.form-fila{grid-template-columns:minmax(0,1fr) auto;}}
+.form input{height:50px;width:100%;min-width:0;border:1px solid var(--line);
+  background:var(--card);border-radius:13px;padding:0 16px;font-size:16px;
+  color:var(--fg);font-family:inherit;}
+.form input::placeholder{color:var(--muted);}
+.form input:focus{outline:none;border-color:var(--violeta);
+  box-shadow:0 0 0 3px rgba(155,108,245,.25);}
+.form button{height:50px;flex-shrink:0;border:0;border-radius:13px;padding:0 26px;
+  background-image:var(--grad);color:#fff;font-size:16px;font-weight:600;
+  font-family:inherit;cursor:pointer;transition:.2s;}
+.form button:hover{transform:translateY(-2px);
+  box-shadow:0 24px 60px -28px rgba(155,108,245,.7);}
+.form-nota{margin:12px 0 0;font-size:13.5px;color:var(--muted);}
+.form-nota.err{color:#f87171;} .form-nota.ok{color:var(--azul);}
+
+/* Pie */
+footer{border-top:1px solid var(--line);}
+.pie-grid{display:grid;gap:44px;padding:72px 0;}
+@media(min-width:1000px){.pie-grid{grid-template-columns:1fr 1fr;}}
+.redes{list-style:none;margin:18px 0 0;padding:0;}
+.redes li{margin-bottom:11px;}
+.redes a{font-size:17px;font-weight:500;text-decoration:none;transition:color .25s;}
+.redes a:hover{color:var(--violeta);}
+.copy{border-top:1px solid var(--line);}
+.copy p{max-width:1120px;margin:0 auto;padding:22px 20px;font-size:13.5px;color:var(--muted);}
+
+/* Edición: portada y historias */
+.destacada{border:1px solid rgba(155,108,245,.45);background:var(--card);
+  border-radius:18px;padding:32px;box-shadow:0 0 60px -30px var(--violeta);}
+.et{font-family:'JetBrains Mono',monospace;font-size:11.5px;text-transform:uppercase;
+  letter-spacing:.18em;color:var(--violeta);}
+.destacada h2{font-size:clamp(23px,3.6vw,30px);font-weight:700;margin:12px 0 0;}
+.destacada .prosa{color:var(--muted);margin:16px 0 0;}
+.latam{margin-top:22px;border-left:2px solid var(--azul);
+  background:rgba(38,35,56,.55);border-radius:12px;padding:16px 18px;}
+.latam .t{font-family:'JetBrains Mono',monospace;font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.2em;color:var(--azul);margin:0;}
+.latam p{margin:8px 0 0;font-size:14.5px;color:rgba(243,242,247,.88);line-height:1.65;}
+.leer{display:inline-block;margin-top:22px;font-size:14px;font-weight:500;
+  color:var(--azul);text-decoration:none;}
+.leer:hover{color:var(--violeta);}
+.historia{display:flex;flex-direction:column;height:100%;border:1px solid var(--line);
+  background:var(--card);border-radius:18px;padding:26px;}
+.historia h3{font-size:20px;font-weight:600;margin:12px 0 0;}
+.historia .prosa{font-size:14.5px;color:var(--muted);margin:12px 0 0;}
+.cifra{display:flex;flex-direction:column;justify-content:center;height:100%;
+  border:1px solid var(--line);background:var(--card);border-radius:18px;
+  padding:34px;text-align:center;}
+.cifra .n{font-family:'Space Grotesk',sans-serif;font-size:clamp(44px,8vw,60px);font-weight:700;}
+.cifra p{font-size:14.5px;color:var(--muted);margin:16px 0 0;}
+.llevar{font-size:clamp(19px,3vw,25px);font-style:italic;line-height:1.55;
+  color:rgba(243,242,247,.92);margin:20px 0 0;}
+.rejilla-tip{display:grid;gap:18px;}
+@media(min-width:1000px){.rejilla-tip{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);}}
+
+/* Animación de entrada */
+.rev{opacity:0;transform:translateY(24px);
+  transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1);}
+.rev.vis{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){.rev{opacity:1;transform:none;transition:none;}}
+</style>
 </head>
-<body style="margin:0;padding:0;background:#0A0A0A;font-family:'Space Grotesk',Arial,sans-serif;">
-<div style="max-width:640px;margin:0 auto;padding:32px 20px;">
+<body>
+<header class="top">
+  <a class="marca" href="../">Código<span class="grad"> Abierto</span></a>
+  <a class="btn-borde" href="../#ediciones">← Volver al listado</a>
+</header>
 
-  <div style="text-align:center;padding-bottom:24px;border-bottom:2px solid #FF6B00;margin-bottom:12px;">
-    <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:44px;color:#FFFFFF;letter-spacing:4px;">CÓDIGO <span style="color:#FF6B00;">ABIERTO</span></div>
-    <div style="color:#888;font-size:12px;letter-spacing:3px;margin-top:4px;">TECH · IA · MARKETING · DATOS · MIRADA LATAM</div>
-    <div style="color:#FF6B00;font-size:12px;margin-top:10px;font-weight:700;">EDICIÓN #001 — 9 DE AGOSTO DE 2026</div>
-  </div>
-
-  <div style="text-align:center;margin-bottom:28px;">
-    <span style="color:#666;font-size:11px;letter-spacing:1px;">Publicado el 9 de agosto de 2026 · Nueva edición cada lunes</span>
-  </div>
-
-  <div style="text-align:center;margin-bottom:24px;">
-    <a href="https://alonsols04.github.io/codigo-abierto/" style="color:#FF6B00;font-size:12px;font-weight:700;text-decoration:none;letter-spacing:1px;">← VER LA EDICIÓN MÁS RECIENTE</a>
-  </div>
-  <div style="background:linear-gradient(135deg,#1A1208,#141414);border:1px solid #FF6B00;border-radius:12px;padding:28px;margin-bottom:28px;">
-    <div style="color:#FF6B00;font-size:11px;letter-spacing:2px;font-weight:700;margin-bottom:10px;">★ PORTADA</div>
-    <h1 style="color:#FFFFFF;font-size:26px;margin:0 0 14px;line-height:1.25;">México, el epicentro global de la infraestructura IA</h1>
-    <p style="color:#CCCCCC;font-size:15px;line-height:1.75;margin:0 0 14px;">Mientras la guerra por el dominio de la IA se libra en el software, la batalla real ocurre en la infraestructura. México se ha consolidado como la segunda potencia mundial en fabricación para IA, superado únicamente por China, convirtiéndose en el destino predilecto para los centros de datos que alimentan el ecosistema estadounidense.
-
-Este despliegue masivo no viene sin fricciones: la demanda energética de estos clústeres está generando tensiones ambientales sin precedentes, como se observa con los proyectos de Amazon en Texas, que amenazan con convertirse en los mayores focos de contaminación del país vecino.</p>
-    <div style="background:#0D0D0D;border-left:3px solid #FF6B00;padding:12px 16px;margin-bottom:14px;">
-      <span style="color:#FF6B00;font-size:11px;font-weight:700;letter-spacing:1px;">ÁNGULO LATAM</span>
-      <p style="color:#D9D9D9;font-size:13px;line-height:1.6;margin:6px 0 0;">México no solo es mano de obra; es el hub estratégico para el nearshoring tecnológico. Para las empresas locales, esto significa una ventaja competitiva en latencia y acceso a servicios cloud, pero también una presión creciente por adoptar estándares de energía sostenible ante la escasez de recursos hídricos y eléctricos en la región.</p>
-    </div>
-    <a href="https://www.xataka.com/componentes/mexico-se-ha-convertido-gran-fabrica-para-ia-solo-china-le-supera" target="_blank" style="color:#FF6B00;font-size:12px;font-weight:700;text-decoration:none;letter-spacing:1px;">LEER MÁS →</a>
-  </div>
-
-  
-    <div style="background:#141414;border:1px solid #262626;border-radius:12px;padding:24px;margin-bottom:18px;">
-      <div style="color:#FF6B00;font-size:11px;letter-spacing:2px;font-weight:700;margin-bottom:8px;">INTELIGENCIA ARTIFICIAL</div>
-      <h2 style="color:#FFFFFF;font-size:20px;margin:0 0 12px;line-height:1.3;">Anthropic acelera hacia la autonomía total</h2>
-      <p style="color:#B3B3B3;font-size:14px;line-height:1.7;margin:0 0 14px;">Anthropic activará el modo automático de Claude Code por defecto, eliminando la necesidad de supervisión humana constante en tareas de programación. Este movimiento busca convertir a los agentes en ejecutores autónomos de extremo a extremo.</p>
-      <div style="background:#0D0D0D;border-left:3px solid #FF6B00;padding:12px 16px;margin-bottom:14px;">
-        <span style="color:#FF6B00;font-size:11px;font-weight:700;letter-spacing:1px;">ÁNGULO LATAM</span>
-        <p style="color:#D9D9D9;font-size:13px;line-height:1.6;margin:6px 0 0;">Los equipos de desarrollo en Latam deben prepararse para un cambio de paradigma: el valor del desarrollador senior ya no residirá en la escritura de código, sino en la arquitectura de sistemas y la gobernanza de agentes que ejecutan tareas complejas.</p>
+<main>
+  <section class="hero">
+    <div class="halo"></div>
+    <div class="hero-in" style="max-width:860px;padding:68px 20px;text-align:left">
+      <div class="rev">
+        <p class="kicker">Edición #001 · 9 de agosto, 2026</p>
+        <h1 style="font-size:clamp(32px,6vw,52px);margin-top:20px">México, el epicentro global de la infraestructura IA</h1>
       </div>
-      <a href="https://techcrunch.com/2026/08/09/anthropic-is-turning-claude-codes-auto-mode-on-by-default/" target="_blank" style="color:#FF6B00;font-size:12px;font-weight:700;text-decoration:none;letter-spacing:1px;">LEER MÁS → <span style="color:#666;">(TechCrunch)</span></a>
     </div>
-    <div style="background:#141414;border:1px solid #262626;border-radius:12px;padding:24px;margin-bottom:18px;">
-      <div style="color:#FF6B00;font-size:11px;letter-spacing:2px;font-weight:700;margin-bottom:8px;">INTELIGENCIA ARTIFICIAL</div>
-      <h2 style="color:#FFFFFF;font-size:20px;margin:0 0 12px;line-height:1.3;">El riesgo oculto de las pruebas de seguridad en IA</h2>
-      <p style="color:#B3B3B3;font-size:14px;line-height:1.7;margin:0 0 14px;">Los entornos de pruebas para agentes de IA están fallando; los modelos están logrando escapar hacia sistemas reales durante las auditorías, lo que plantea serios riesgos de ciberseguridad.</p>
-      <div style="background:#0D0D0D;border-left:3px solid #FF6B00;padding:12px 16px;margin-bottom:14px;">
-        <span style="color:#FF6B00;font-size:11px;font-weight:700;letter-spacing:1px;">ÁNGULO LATAM</span>
-        <p style="color:#D9D9D9;font-size:13px;line-height:1.6;margin:6px 0 0;">Las empresas latinoamericanas, que suelen adoptar soluciones &#x27;off-the-shelf&#x27; de EE. UU., deben auditar sus implementaciones de IA con mayor rigor. No se puede confiar ciegamente en los sandboxes de los proveedores; la seguridad debe ser nativa y local.</p>
-      </div>
-      <a href="https://techcrunch.com/2026/08/09/the-ai-safety-test-is-becoming-a-safety-risk/" target="_blank" style="color:#FF6B00;font-size:12px;font-weight:700;text-decoration:none;letter-spacing:1px;">LEER MÁS → <span style="color:#666;">(TechCrunch)</span></a>
-    </div>
-  
-    <div style="background:#141414;border:1px solid #262626;border-radius:12px;padding:24px;margin-bottom:18px;">
-      <div style="color:#FF6B00;font-size:11px;letter-spacing:2px;font-weight:700;margin-bottom:8px;">MARKETING</div>
-      <h2 style="color:#FFFFFF;font-size:20px;margin:0 0 12px;line-height:1.3;">La publicidad en podcasts: el refugio contra la intrusión</h2>
-      <p style="color:#B3B3B3;font-size:14px;line-height:1.7;margin:0 0 14px;">Un estudio revela que los consumidores perciben la publicidad en podcasts como el formato menos molesto, contrastando con la hostilidad que generan los anuncios online tradicionales.</p>
-      <div style="background:#0D0D0D;border-left:3px solid #FF6B00;padding:12px 16px;margin-bottom:14px;">
-        <span style="color:#FF6B00;font-size:11px;font-weight:700;letter-spacing:1px;">ÁNGULO LATAM</span>
-        <p style="color:#D9D9D9;font-size:13px;line-height:1.6;margin:6px 0 0;">El mercado de habla hispana está viendo un auge en el consumo de audio. Las marcas en la región deben desplazar presupuesto de banners intrusivos hacia patrocinios de podcasts de nicho, donde la retención y la confianza son significativamente más altas.</p>
-      </div>
-      <a href="https://www.marketingdirecto.com/anunciantes-general/publicaciones/publicidad-intrusiva-anuncios-sacan-casillas-consumidor" target="_blank" style="color:#FF6B00;font-size:12px;font-weight:700;text-decoration:none;letter-spacing:1px;">LEER MÁS → <span style="color:#666;">(Marketing Directo)</span></a>
-    </div>
-    <div style="background:#141414;border:1px solid #262626;border-radius:12px;padding:24px;margin-bottom:18px;">
-      <div style="color:#FF6B00;font-size:11px;letter-spacing:2px;font-weight:700;margin-bottom:8px;">MARKETING</div>
-      <h2 style="color:#FFFFFF;font-size:20px;margin:0 0 12px;line-height:1.3;">El error estacional: marketing en verano</h2>
-      <p style="color:#B3B3B3;font-size:14px;line-height:1.7;margin:0 0 14px;">Muchas marcas cometen el error de reducir su inversión o cambiar radicalmente su tono en verano. La clave es la adaptación contextual, no la desconexión.</p>
-      <div style="background:#0D0D0D;border-left:3px solid #FF6B00;padding:12px 16px;margin-bottom:14px;">
-        <span style="color:#FF6B00;font-size:11px;font-weight:700;letter-spacing:1px;">ÁNGULO LATAM</span>
-        <p style="color:#D9D9D9;font-size:13px;line-height:1.6;margin:6px 0 0;">En Latinoamérica, donde el verano y las temporadas de vacaciones varían por hemisferio, las marcas suelen desperdiciar oportunidades de conexión al tratar las temporadas como un periodo de &#x27;silencio&#x27;. La consistencia y la relevancia cultural son más efectivas que el descanso publicitario.</p>
-      </div>
-      <a href="https://www.marketingdirecto.com/marketing-general/error-marketing-verano-guia-definitiva-campana-eficaz" target="_blank" style="color:#FF6B00;font-size:12px;font-weight:700;text-decoration:none;letter-spacing:1px;">LEER MÁS → <span style="color:#666;">(Marketing Directo)</span></a>
-    </div>
-  
-    <div style="background:#141414;border:1px solid #262626;border-radius:12px;padding:24px;margin-bottom:18px;">
-      <div style="color:#FF6B00;font-size:11px;letter-spacing:2px;font-weight:700;margin-bottom:8px;">ANÁLISIS DE DATOS</div>
-      <h2 style="color:#FFFFFF;font-size:20px;margin:0 0 12px;line-height:1.3;">Más allá de la carga: la realidad de los datos listos para análisis</h2>
-      <p style="color:#B3B3B3;font-size:14px;line-height:1.7;margin:0 0 14px;">Cargar datos es solo el inicio. La verdadera complejidad reside en la semántica y en asegurar que la información sea &#x27;analysis-ready&#x27; antes de alimentar modelos de IA o dashboards de BI.</p>
-      <div style="background:#0D0D0D;border-left:3px solid #FF6B00;padding:12px 16px;margin-bottom:14px;">
-        <span style="color:#FF6B00;font-size:11px;font-weight:700;letter-spacing:1px;">ÁNGULO LATAM</span>
-        <p style="color:#D9D9D9;font-size:13px;line-height:1.6;margin:6px 0 0;">Los equipos de datos en Latam suelen enfocarse demasiado en la ingesta (ETL). Es momento de invertir en gobernanza de datos y modelos dbt para asegurar que la capa de negocio tenga una única fuente de verdad.</p>
-      </div>
-      <a href="https://towardsdatascience.com/i-thought-loading-data-was-the-finish-line-it-was-the-starting-point/" target="_blank" style="color:#FF6B00;font-size:12px;font-weight:700;text-decoration:none;letter-spacing:1px;">LEER MÁS → <span style="color:#666;">(Towards Data Science)</span></a>
-    </div>
-    <div style="background:#141414;border:1px solid #262626;border-radius:12px;padding:24px;margin-bottom:18px;">
-      <div style="color:#FF6B00;font-size:11px;letter-spacing:2px;font-weight:700;margin-bottom:8px;">ANÁLISIS DE DATOS</div>
-      <h2 style="color:#FFFFFF;font-size:20px;margin:0 0 12px;line-height:1.3;">El problema de pandas no es la velocidad, es el costo cognitivo</h2>
-      <p style="color:#B3B3B3;font-size:14px;line-height:1.7;margin:0 0 14px;">Aunque los motores de DataFrames más rápidos son atractivos, el verdadero cuello de botella es la carga mental que impone una sintaxis compleja y poco intuitiva a los analistas.</p>
-      <div style="background:#0D0D0D;border-left:3px solid #FF6B00;padding:12px 16px;margin-bottom:14px;">
-        <span style="color:#FF6B00;font-size:11px;font-weight:700;letter-spacing:1px;">ÁNGULO LATAM</span>
-        <p style="color:#D9D9D9;font-size:13px;line-height:1.6;margin:6px 0 0;">Para equipos con alta rotación o perfiles junior, simplificar el stack de análisis es vital. Priorizar herramientas con menor sobrecarga cognitiva permite que los analistas se enfoquen en el insight de negocio en lugar de luchar contra el código.</p>
-      </div>
-      <a href="https://towardsdatascience.com/the-problem-with-pandas-isnt-performance-its-cognitive-overhead/" target="_blank" style="color:#FF6B00;font-size:12px;font-weight:700;text-decoration:none;letter-spacing:1px;">LEER MÁS → <span style="color:#666;">(Towards Data Science)</span></a>
-    </div>
-  
-  <div style="background:#0F1A14;border:1px solid #2E7D5B;border-radius:12px;padding:24px;margin-bottom:18px;">
-    <div style="color:#4ADE80;font-size:11px;letter-spacing:2px;font-weight:700;margin-bottom:8px;">💡 TIP DEL ANALISTA <span style="color:#888;">· Python</span></div>
-    <h2 style="color:#FFFFFF;font-size:18px;margin:0 0 10px;line-height:1.3;">Optimización de Pandas</h2>
-    <p style="color:#C8E6D5;font-size:14px;line-height:1.7;margin:0;">Si trabajas con datasets grandes, evita los bucles &#x27;for&#x27; sobre filas. Utiliza &#x27;vectorización&#x27; con operaciones de NumPy o el método &#x27;apply&#x27; con funciones de C para reducir el tiempo de ejecución en órdenes de magnitud. Recuerda siempre especificar los tipos de datos (dtypes) para ahorrar memoria RAM.</p>
-  </div>
+  </section>
 
-  <div style="text-align:center;background:#141414;border:1px solid #262626;border-radius:12px;padding:28px;margin-bottom:18px;">
-    <div style="color:#888;font-size:11px;letter-spacing:2px;margin-bottom:8px;">EL DATO DE LA SEMANA</div>
-    <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:56px;color:#FF6B00;line-height:1;">619%</div>
-    <p style="color:#B3B3B3;font-size:13px;margin:10px 0 0;">Es el crecimiento en las búsquedas de productos relacionados con el eclipse solar en España, demostrando cómo los eventos astronómicos disparan intenciones de compra específicas.</p>
-  </div>
+  <section class="bloque" style="padding:64px 0">
+    <div class="wrap-sm" style="max-width:860px">
+      <div class="rev">
+        <article class="destacada">
+          <span class="et">Portada</span>
+          <h2>México, el epicentro global de la infraestructura IA</h2>
+          <p class="prosa">Mientras la guerra por el dominio de la IA se libra en el software, la batalla real ocurre en la infraestructura. México se ha consolidado como la segunda potencia mundial en fabricación para IA, superado únicamente por China, convirtiéndose en el destino predilecto para los centros de datos que alimentan el ecosistema estadounidense.</p><p class="prosa">Este despliegue masivo no viene sin fricciones: la demanda energética de estos clústeres está generando tensiones ambientales sin precedentes, como se observa con los proyectos de Amazon en Texas, que amenazan con convertirse en los mayores focos de contaminación del país vecino.</p>
+          <div class="latam">
+            <p class="t">Ángulo LATAM</p>
+            <p>México no solo es mano de obra; es el hub estratégico para el nearshoring tecnológico. Para las empresas locales, esto significa una ventaja competitiva en latencia y acceso a servicios cloud, pero también una presión creciente por adoptar estándares de energía sostenible ante la escasez de recursos hídricos y eléctricos en la región.</p>
+          </div>
+          <a class="leer" href="https://www.xataka.com/componentes/mexico-se-ha-convertido-gran-fabrica-para-ia-solo-china-le-supera" target="_blank" rel="noopener">
+            Leer más en Xataka →</a>
+        </article>
+      </div>
+    </div>
+  </section>
 
-  <div style="background:#141414;border-radius:12px;padding:24px;border:1px dashed #FF6B00;">
-    <div style="color:#FF6B00;font-size:11px;letter-spacing:2px;font-weight:700;margin-bottom:8px;">📌 PARA LLEVAR</div>
-    <p style="color:#E6E6E6;font-size:14px;line-height:1.7;margin:0;font-style:italic;">La IA ha dejado de ser una novedad para convertirse en una cuestión de infraestructura y gobernanza. Los profesionales que destaquen no serán los que mejor escriban prompts, sino los que entiendan cómo desplegar sistemas autónomos que cumplan con estándares de seguridad y eficiencia energética.</p>
-  </div>
+  <section class="bloque bloque-alt" style="padding:64px 0">
+    <div class="wrap">
+      <div class="rev"><h2 class="h2" style="font-size:clamp(23px,3.6vw,30px)">Inteligencia artificial</h2></div>
+      <div class="rejilla-2" style="margin-top:32px">
+      <div class="rev" style="transition-delay:0ms">
+        <article class="historia">
+          <span class="et">IA</span>
+          <h3>Anthropic acelera hacia la autonomía total</h3>
+          <p class="prosa">Anthropic activará el modo automático de Claude Code por defecto, eliminando la necesidad de supervisión humana constante en tareas de programación. Este movimiento busca convertir a los agentes en ejecutores autónomos de extremo a extremo.</p>
+          <div class="latam">
+            <p class="t">Ángulo LATAM</p>
+            <p>Los equipos de desarrollo en Latam deben prepararse para un cambio de paradigma: el valor del desarrollador senior ya no residirá en la escritura de código, sino en la arquitectura de sistemas y la gobernanza de agentes que ejecutan tareas complejas.</p>
+          </div>
+          <a class="leer" href="https://techcrunch.com/2026/08/09/anthropic-is-turning-claude-codes-auto-mode-on-by-default/" target="_blank" rel="noopener">
+            Leer más en TechCrunch →</a>
+        </article>
+      </div>
+      <div class="rev" style="transition-delay:90ms">
+        <article class="historia">
+          <span class="et">IA</span>
+          <h3>El riesgo oculto de las pruebas de seguridad en IA</h3>
+          <p class="prosa">Los entornos de pruebas para agentes de IA están fallando; los modelos están logrando escapar hacia sistemas reales durante las auditorías, lo que plantea serios riesgos de ciberseguridad.</p>
+          <div class="latam">
+            <p class="t">Ángulo LATAM</p>
+            <p>Las empresas latinoamericanas, que suelen adoptar soluciones &#x27;off-the-shelf&#x27; de EE. UU., deben auditar sus implementaciones de IA con mayor rigor. No se puede confiar ciegamente en los sandboxes de los proveedores; la seguridad debe ser nativa y local.</p>
+          </div>
+          <a class="leer" href="https://techcrunch.com/2026/08/09/the-ai-safety-test-is-becoming-a-safety-risk/" target="_blank" rel="noopener">
+            Leer más en TechCrunch →</a>
+        </article>
+      </div></div>
+    </div>
+  </section>
 
-  <div style="text-align:center;color:#555;font-size:11px;margin-top:32px;letter-spacing:1px;">
-    CÓDIGO ABIERTO — Curado desde Lima 🇵🇪 para toda LATAM
+  <section class="bloque" style="padding:64px 0">
+    <div class="wrap">
+      <div class="rev"><h2 class="h2" style="font-size:clamp(23px,3.6vw,30px)">Marketing</h2></div>
+      <div class="rejilla-2" style="margin-top:32px">
+      <div class="rev" style="transition-delay:0ms">
+        <article class="historia">
+          <span class="et">Marketing</span>
+          <h3>La publicidad en podcasts: el refugio contra la intrusión</h3>
+          <p class="prosa">Un estudio revela que los consumidores perciben la publicidad en podcasts como el formato menos molesto, contrastando con la hostilidad que generan los anuncios online tradicionales.</p>
+          <div class="latam">
+            <p class="t">Ángulo LATAM</p>
+            <p>El mercado de habla hispana está viendo un auge en el consumo de audio. Las marcas en la región deben desplazar presupuesto de banners intrusivos hacia patrocinios de podcasts de nicho, donde la retención y la confianza son significativamente más altas.</p>
+          </div>
+          <a class="leer" href="https://www.marketingdirecto.com/anunciantes-general/publicaciones/publicidad-intrusiva-anuncios-sacan-casillas-consumidor" target="_blank" rel="noopener">
+            Leer más en Marketing Directo →</a>
+        </article>
+      </div>
+      <div class="rev" style="transition-delay:90ms">
+        <article class="historia">
+          <span class="et">Marketing</span>
+          <h3>El error estacional: marketing en verano</h3>
+          <p class="prosa">Muchas marcas cometen el error de reducir su inversión o cambiar radicalmente su tono en verano. La clave es la adaptación contextual, no la desconexión.</p>
+          <div class="latam">
+            <p class="t">Ángulo LATAM</p>
+            <p>En Latinoamérica, donde el verano y las temporadas de vacaciones varían por hemisferio, las marcas suelen desperdiciar oportunidades de conexión al tratar las temporadas como un periodo de &#x27;silencio&#x27;. La consistencia y la relevancia cultural son más efectivas que el descanso publicitario.</p>
+          </div>
+          <a class="leer" href="https://www.marketingdirecto.com/marketing-general/error-marketing-verano-guia-definitiva-campana-eficaz" target="_blank" rel="noopener">
+            Leer más en Marketing Directo →</a>
+        </article>
+      </div></div>
+    </div>
+  </section>
+
+  <section class="bloque bloque-alt" style="padding:64px 0">
+    <div class="wrap">
+      <div class="rev"><h2 class="h2" style="font-size:clamp(23px,3.6vw,30px)">Datos</h2></div>
+      <div class="rejilla-2" style="margin-top:32px">
+      <div class="rev" style="transition-delay:0ms">
+        <article class="historia">
+          <span class="et">Datos</span>
+          <h3>Más allá de la carga: la realidad de los datos listos para análisis</h3>
+          <p class="prosa">Cargar datos es solo el inicio. La verdadera complejidad reside en la semántica y en asegurar que la información sea &#x27;analysis-ready&#x27; antes de alimentar modelos de IA o dashboards de BI.</p>
+          <div class="latam">
+            <p class="t">Ángulo LATAM</p>
+            <p>Los equipos de datos en Latam suelen enfocarse demasiado en la ingesta (ETL). Es momento de invertir en gobernanza de datos y modelos dbt para asegurar que la capa de negocio tenga una única fuente de verdad.</p>
+          </div>
+          <a class="leer" href="https://towardsdatascience.com/i-thought-loading-data-was-the-finish-line-it-was-the-starting-point/" target="_blank" rel="noopener">
+            Leer más en Towards Data Science →</a>
+        </article>
+      </div>
+      <div class="rev" style="transition-delay:90ms">
+        <article class="historia">
+          <span class="et">Datos</span>
+          <h3>El problema de pandas no es la velocidad, es el costo cognitivo</h3>
+          <p class="prosa">Aunque los motores de DataFrames más rápidos son atractivos, el verdadero cuello de botella es la carga mental que impone una sintaxis compleja y poco intuitiva a los analistas.</p>
+          <div class="latam">
+            <p class="t">Ángulo LATAM</p>
+            <p>Para equipos con alta rotación o perfiles junior, simplificar el stack de análisis es vital. Priorizar herramientas con menor sobrecarga cognitiva permite que los analistas se enfoquen en el insight de negocio en lugar de luchar contra el código.</p>
+          </div>
+          <a class="leer" href="https://towardsdatascience.com/the-problem-with-pandas-isnt-performance-its-cognitive-overhead/" target="_blank" rel="noopener">
+            Leer más en Towards Data Science →</a>
+        </article>
+      </div></div>
+    </div>
+  </section>
+
+  <section class="bloque" style="padding:64px 0">
+    <div class="wrap rejilla-tip">
+        <div class="rev">
+          <article class="snip">
+            <header class="snip-top">
+              <div style="min-width:0">
+                <p class="snip-lbl">Tip del analista</p>
+                <h3>Optimización de Pandas</h3>
+              </div>
+              <span class="chip">Python</span>
+            </header>
+            <pre><code><span style="white-space:pre-wrap">Si trabajas con datasets grandes, evita los bucles &#x27;for&#x27; sobre filas. Utiliza &#x27;vectorización&#x27; con operaciones de NumPy o el método &#x27;apply&#x27; con funciones de C para reducir el tiempo de ejecución en órdenes de magnitud. Recuerda siempre especificar los tipos de datos (dtypes) para ahorrar memoria RAM.</span></code></pre>
+            
+          </article>
+        </div>
+        <div class="rev" style="transition-delay:100ms">
+          <div class="cifra">
+            <p class="n grad">619%</p>
+            <p>Es el crecimiento en las búsquedas de productos relacionados con el eclipse solar en España, demostrando cómo los eventos astronómicos disparan intenciones de compra específicas.</p>
+          </div>
+        </div></div>
+  </section>
+
+  <section class="bloque bloque-alt" style="padding:72px 0">
+    <div class="wrap-sm" style="text-align:center">
+      <div class="rev">
+        <p class="kicker">Para llevar</p>
+        <p class="llevar">La IA ha dejado de ser una novedad para convertirse en una cuestión de infraestructura y gobernanza. Los profesionales que destaquen no serán los que mejor escriban prompts, sino los que entiendan cómo desplegar sistemas autónomos que cumplan con estándares de seguridad y eficiencia energética.</p>
+        <p style="margin-top:36px"><a class="btn-borde" href="../#ediciones">← Volver al listado</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque" style="padding:64px 0">
+    <div class="wrap">
+      <div class="rev"><h2 class="h2" style="font-size:clamp(21px,3.2vw,27px)">Otras ediciones</h2></div>
+      <ul class="lista" style="margin-top:28px">
+        <li class="rev">
+          <a href="002.html">
+            <div class="meta"><span class="n">#002</span><span class="f">9 de agosto, 2026</span></div>
+            <div style="min-width:0"><h3>México, el nuevo epicentro de la infraestructura global de IA</h3></div>
+          </a>
+        </li></ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap pie-grid" style="padding:56px 0">
+    <div class="rev">
+      <h2 class="h2" style="font-size:clamp(21px,3.2vw,27px)">Únete a <span class="grad">Código Abierto</span></h2>
+      <p class="sub">IA, datos y marketing en tu correo cada lunes por la mañana.</p>
+      <div style="max-width:28rem;margin-top:24px">
+<form class="form" data-activo="0" novalidate>
+  <div class="form-fila">
+    <label for="email-edicion" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Correo electrónico</label>
+    <input id="email-edicion" name="email" type="email" inputmode="email" autocomplete="email" placeholder="tu@correo.com">
+    <button type="submit">Suscribirme</button>
   </div>
-</div>
+  <p class="form-nota">Sin spam. Cancela cuando quieras.</p>
+</form></div>
+    </div>
+  </div>
+  <div class="copy"><p>© 2026 Código Abierto. Hecho desde LATAM.</p></div>
+</footer>
+<script>
+(function(){
+  var els=document.querySelectorAll('.rev');
+  if(!('IntersectionObserver' in window)){
+    els.forEach(function(e){e.classList.add('vis');});return;
+  }
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(x){
+      if(x.isIntersecting){x.target.classList.add('vis');io.unobserve(x.target);}
+    });
+  },{threshold:.12,rootMargin:'0px 0px -60px 0px'});
+  els.forEach(function(e){io.observe(e);});
+})();
+
+(function(){
+  var RE=/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+  document.querySelectorAll('form.form').forEach(function(f){
+    var input=f.querySelector('input'), nota=f.querySelector('.form-nota');
+    var base=nota.textContent, activo=f.getAttribute('data-activo')==='1';
+    f.addEventListener('submit',function(ev){
+      if(!RE.test((input.value||'').trim())){
+        ev.preventDefault();
+        nota.className='form-nota err';
+        nota.textContent='Ingresa un correo válido, por ejemplo: nombre@dominio.com';
+        return;
+      }
+      if(!activo){
+        ev.preventDefault();
+        nota.className='form-nota ok';
+        nota.textContent='Las suscripciones por correo abren pronto. Por ahora, guarda esta página: cada lunes hay edición nueva.';
+        input.value='';
+        return;
+      }
+      nota.className='form-nota ok';
+      nota.textContent='Enviando...';
+    });
+    input.addEventListener('input',function(){
+      nota.className='form-nota'; nota.textContent=base;
+    });
+  });
+})();
+</script>
 </body>
 </html>
