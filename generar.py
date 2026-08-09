@@ -3,11 +3,12 @@
 CÓDIGO ABIERTO — Generador semanal
 1) Lee titulares recientes desde feeds RSS
 2) Pide a Gemini (free tier) que redacte la edición en JSON
-3) Renderiza el HTML y actualiza docs/index.html (edición más reciente)
-4) Archiva la edición:
-   - docs/ediciones/NNN.html  -> respaldo legible en GitHub Pages
-   - docs/ediciones/NNN.json  -> contenido completo para consumir desde Lovable
-   - docs/index.json          -> lista ligera de todas las ediciones (historial)
+3) Renderiza el HTML con un archivo de ediciones pasadas al pie
+4) Publica:
+   - docs/index.html          -> edición más reciente
+   - docs/ediciones/NNN.html  -> respaldo permanente de cada edición
+   - docs/ediciones/NNN.json  -> contenido completo (lo consume Lovable)
+   - docs/index.json          -> historial ligero de todas las ediciones
 """
 
 import os
@@ -29,6 +30,9 @@ DIR_EDICIONES = DIR_DOCS / "ediciones"
 ARCHIVO_INDEX = DIR_DOCS / "index.json"
 
 URL_BASE = "https://alonsols04.github.io/codigo-abierto"
+
+# Cuántas ediciones pasadas se listan al pie de la página
+MAX_ARCHIVO_VISIBLE = 12
 
 FEEDS = [
     "https://techcrunch.com/feed/",
@@ -137,7 +141,38 @@ def generar_contenido(noticias):
         print(f"{modelo} agotado, probando siguiente modelo...")
     raise SystemExit(f"Ningun modelo de Gemini respondio. Ultimo error: {ultimo_error}")
 
-# ---------------------------------------------------------------- 3. HTML ---
+# ------------------------------------------------------- 3. ARCHIVO / JSON ---
+
+def cargar_indice():
+    """Lee el historial existente. Devuelve lista vacía si aún no existe."""
+    if ARCHIVO_INDEX.exists():
+        try:
+            return json.loads(ARCHIVO_INDEX.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            print("[aviso] index.json corrupto; se reinicia el historial.")
+            return []
+    return []
+
+def siguiente_numero(indice):
+    if not indice:
+        return 1
+    return max(int(e["numero"]) for e in indice) + 1
+
+def resumen_corto(texto, limite=160):
+    texto = (texto or "").strip()
+    if len(texto) <= limite:
+        return texto
+    return texto[:limite].rsplit(" ", 1)[0] + "…"
+
+def fecha_legible(fecha_iso):
+    """'2026-08-09' -> '9 de agosto, 2026'"""
+    try:
+        d = datetime.date.fromisoformat(fecha_iso)
+        return f"{d.day} de {MESES[d.month-1]}, {d.year}"
+    except Exception:
+        return fecha_iso
+
+# ---------------------------------------------------------------- 4. HTML ---
 
 def esc(t):
     return html.escape(t or "")
@@ -155,12 +190,48 @@ def tarjeta(historia, etiqueta):
       <a href="{esc(historia.get('enlace',''))}" target="_blank" style="color:#FF6B00;font-size:12px;font-weight:700;text-decoration:none;letter-spacing:1px;">LEER MÁS → <span style="color:#666;">({esc(historia.get('fuente',''))})</span></a>
     </div>"""
 
-def render_html(c, ahora):
+def bloque_archivo(indice, numero_actual, ruta_relativa):
+    """Lista de ediciones pasadas. `ruta_relativa` ajusta los links según
+    si la página está en la raíz (docs/) o en docs/ediciones/."""
+    pasadas = [e for e in indice if e["numero"] != numero_actual][:MAX_ARCHIVO_VISIBLE]
+    if not pasadas:
+        return ""
+    filas = ""
+    for e in pasadas:
+        href = f"{ruta_relativa}{e['numero']}.html"
+        filas += f"""
+      <a href="{href}" style="display:block;text-decoration:none;padding:14px 0;border-bottom:1px solid #1F1F1F;">
+        <span style="color:#FF6B00;font-family:monospace;font-size:12px;font-weight:700;">#{esc(e['numero'])}</span>
+        <span style="color:#666;font-size:11px;margin-left:8px;">{esc(fecha_legible(e['fecha']))}</span>
+        <div style="color:#DDDDDD;font-size:14px;line-height:1.4;margin-top:4px;">{esc(e['titulo'])}</div>
+      </a>"""
+    return f"""
+  <div style="background:#141414;border:1px solid #262626;border-radius:12px;padding:24px;margin-top:28px;">
+    <div style="color:#888;font-size:11px;letter-spacing:2px;font-weight:700;margin-bottom:6px;">🗂 EDICIONES ANTERIORES</div>
+    <p style="color:#666;font-size:12px;margin:0 0 8px;">Cada lunes se suma una edición nueva. El archivo queda disponible siempre.</p>
+    {filas}
+  </div>"""
+
+def render_html(c, ahora, numero_str, indice, es_archivo=False):
+    """`es_archivo=True` cuando la página se guarda dentro de docs/ediciones/."""
     fecha_texto = f"{ahora.day} de {MESES[ahora.month-1]} de {ahora.year}"
-    hora_texto = ahora.strftime("%H:%M")
     cuerpo_ia = "".join(tarjeta(h, "INTELIGENCIA ARTIFICIAL") for h in c["ia"])
     cuerpo_mkt = "".join(tarjeta(h, "MARKETING") for h in c["marketing"])
     cuerpo_datos = "".join(tarjeta(h, "ANÁLISIS DE DATOS") for h in c.get("datos", []))
+
+    # Links del archivo: desde la raíz apuntan a ediciones/, desde una
+    # edición archivada apuntan al mismo directorio.
+    ruta_rel = "" if es_archivo else "ediciones/"
+    archivo = bloque_archivo(indice, numero_str, ruta_rel)
+
+    # Desde una edición archivada, ofrecer volver a la más reciente
+    volver = ""
+    if es_archivo:
+        volver = f"""
+  <div style="text-align:center;margin-bottom:24px;">
+    <a href="{URL_BASE}/" style="color:#FF6B00;font-size:12px;font-weight:700;text-decoration:none;letter-spacing:1px;">← VER LA EDICIÓN MÁS RECIENTE</a>
+  </div>"""
+
     tip = c.get("tip_analista", {})
     bloque_tip = ""
     if tip:
@@ -170,12 +241,13 @@ def render_html(c, ahora):
     <h2 style="color:#FFFFFF;font-size:18px;margin:0 0 10px;line-height:1.3;">{esc(tip.get('titulo',''))}</h2>
     <p style="color:#C8E6D5;font-size:14px;line-height:1.7;margin:0;">{esc(tip.get('cuerpo',''))}</p>
   </div>"""
+
     return f"""<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Código Abierto — Briefing de la semana</title>
+<title>Código Abierto #{numero_str} — {esc(c['portada']['titulo'])}</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body style="margin:0;padding:0;background:#0A0A0A;font-family:'Space Grotesk',Arial,sans-serif;">
@@ -184,14 +256,13 @@ def render_html(c, ahora):
   <div style="text-align:center;padding-bottom:24px;border-bottom:2px solid #FF6B00;margin-bottom:12px;">
     <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:44px;color:#FFFFFF;letter-spacing:4px;">CÓDIGO <span style="color:#FF6B00;">ABIERTO</span></div>
     <div style="color:#888;font-size:12px;letter-spacing:3px;margin-top:4px;">TECH · IA · MARKETING · DATOS · MIRADA LATAM</div>
-    <div style="color:#FF6B00;font-size:12px;margin-top:10px;font-weight:700;">EDICIÓN DE LA SEMANA — {fecha_texto.upper()}</div>
+    <div style="color:#FF6B00;font-size:12px;margin-top:10px;font-weight:700;">EDICIÓN #{numero_str} — {fecha_texto.upper()}</div>
   </div>
 
   <div style="text-align:center;margin-bottom:28px;">
-    <span style="color:#666;font-size:11px;letter-spacing:1px;">Actualizado: {fecha_texto}, {hora_texto} (Lima) · Se renueva cada lunes</span><br>
-    <button onclick="location.reload(true)" style="margin-top:10px;background:transparent;border:1px solid #FF6B00;color:#FF6B00;font-family:'Space Grotesk',Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;padding:8px 20px;border-radius:24px;cursor:pointer;">⟳ ACTUALIZAR</button>
+    <span style="color:#666;font-size:11px;letter-spacing:1px;">Publicado el {fecha_texto} · Nueva edición cada lunes</span>
   </div>
-
+{volver}
   <div style="background:linear-gradient(135deg,#1A1208,#141414);border:1px solid #FF6B00;border-radius:12px;padding:28px;margin-bottom:28px;">
     <div style="color:#FF6B00;font-size:11px;letter-spacing:2px;font-weight:700;margin-bottom:10px;">★ PORTADA</div>
     <h1 style="color:#FFFFFF;font-size:26px;margin:0 0 14px;line-height:1.25;">{esc(c['portada']['titulo'])}</h1>
@@ -218,7 +289,7 @@ def render_html(c, ahora):
     <div style="color:#FF6B00;font-size:11px;letter-spacing:2px;font-weight:700;margin-bottom:8px;">📌 PARA LLEVAR</div>
     <p style="color:#E6E6E6;font-size:14px;line-height:1.7;margin:0;font-style:italic;">{esc(c['para_llevar'])}</p>
   </div>
-
+{archivo}
   <div style="text-align:center;color:#555;font-size:11px;margin-top:32px;letter-spacing:1px;">
     CÓDIGO ABIERTO — Curado desde Lima 🇵🇪 para toda LATAM
   </div>
@@ -226,41 +297,48 @@ def render_html(c, ahora):
 </body>
 </html>"""
 
-# ------------------------------------------------------- 4. ARCHIVO / JSON ---
+# ----------------------------------------------------------------- MAIN -----
 
-def cargar_indice():
-    """Lee el historial existente. Devuelve lista vacía si aún no existe."""
-    if ARCHIVO_INDEX.exists():
-        try:
-            return json.loads(ARCHIVO_INDEX.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
-            print("[aviso] index.json corrupto; se reinicia el historial.")
-            return []
-    return []
-
-def siguiente_numero(indice):
-    if not indice:
-        return 1
-    return max(int(e["numero"]) for e in indice) + 1
-
-def resumen_corto(texto, limite=160):
-    texto = (texto or "").strip()
-    if len(texto) <= limite:
-        return texto
-    return texto[:limite].rsplit(" ", 1)[0] + "…"
-
-def archivar_edicion(contenido, ahora, salida_html):
-    """Guarda la edición como HTML + JSON completo y actualiza el historial."""
+def main():
+    ahora = datetime.datetime.now(ZoneInfo("America/Lima"))
+    DIR_DOCS.mkdir(parents=True, exist_ok=True)
     DIR_EDICIONES.mkdir(parents=True, exist_ok=True)
+
+    noticias = recolectar_noticias()
+    if not noticias:
+        raise SystemExit("No se pudieron recolectar noticias; se aborta.")
+
+    contenido = generar_contenido(noticias)
+
+    # --- Numeración e historial ---
     indice = cargar_indice()
-    numero = siguiente_numero(indice)
-    numero_str = f"{numero:03d}"
+    numero_str = f"{siguiente_numero(indice):03d}"
     fecha_iso = ahora.strftime("%Y-%m-%d")
 
-    # a) Respaldo HTML legible en GitHub Pages
-    (DIR_EDICIONES / f"{numero_str}.html").write_text(salida_html, encoding="utf-8")
+    entrada_nueva = {
+        "numero": numero_str,
+        "fecha": fecha_iso,
+        "titulo": contenido["portada"]["titulo"],
+        "resumen": resumen_corto(contenido["portada"]["cuerpo"]),
+        "url_json": f"{URL_BASE}/ediciones/{numero_str}.json",
+        "url_html": f"{URL_BASE}/ediciones/{numero_str}.html",
+    }
+    indice_actualizado = [entrada_nueva] + indice  # más reciente primero
 
-    # b) Contenido completo en JSON (lo que consume Lovable)
+    # --- a) Página principal (raíz): edición más reciente ---
+    (DIR_DOCS / "index.html").write_text(
+        render_html(contenido, ahora, numero_str, indice_actualizado, es_archivo=False),
+        encoding="utf-8",
+    )
+    print("Página actualizada: docs/index.html")
+
+    # --- b) Respaldo archivado de esta edición ---
+    (DIR_EDICIONES / f"{numero_str}.html").write_text(
+        render_html(contenido, ahora, numero_str, indice_actualizado, es_archivo=True),
+        encoding="utf-8",
+    )
+
+    # --- c) Contenido completo en JSON (lo consume Lovable) ---
     edicion_completa = {
         "numero": numero_str,
         "fecha": fecha_iso,
@@ -277,40 +355,12 @@ def archivar_edicion(contenido, ahora, salida_html):
         json.dumps(edicion_completa, ensure_ascii=False, indent=2), encoding="utf-8"
     )
 
-    # c) Historial ligero para el listado
-    indice.insert(0, {
-        "numero": numero_str,
-        "fecha": fecha_iso,
-        "titulo": contenido["portada"]["titulo"],
-        "resumen": resumen_corto(contenido["portada"]["cuerpo"]),
-        "url_json": f"{URL_BASE}/ediciones/{numero_str}.json",
-        "url_html": f"{URL_BASE}/ediciones/{numero_str}.html",
-    })
+    # --- d) Historial ligero ---
     ARCHIVO_INDEX.write_text(
-        json.dumps(indice, ensure_ascii=False, indent=2), encoding="utf-8"
+        json.dumps(indice_actualizado, ensure_ascii=False, indent=2), encoding="utf-8"
     )
 
-    print(f"Edición #{numero_str} archivada (html + json) · historial: {len(indice)} ediciones")
-
-# ----------------------------------------------------------------- MAIN -----
-
-def main():
-    ahora = datetime.datetime.now(ZoneInfo("America/Lima"))
-    DIR_DOCS.mkdir(parents=True, exist_ok=True)
-
-    noticias = recolectar_noticias()
-    if not noticias:
-        raise SystemExit("No se pudieron recolectar noticias; se aborta.")
-
-    contenido = generar_contenido(noticias)
-    salida = render_html(contenido, ahora)
-
-    # Página principal: siempre la edición más reciente
-    (DIR_DOCS / "index.html").write_text(salida, encoding="utf-8")
-    print("Página actualizada: docs/index.html")
-
-    # Archivo histórico completo
-    archivar_edicion(contenido, ahora, salida)
+    print(f"Edición #{numero_str} publicada · historial: {len(indice_actualizado)} ediciones")
 
 if __name__ == "__main__":
     main()
