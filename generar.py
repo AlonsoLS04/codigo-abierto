@@ -32,7 +32,7 @@ FEEDS = [
 ]
 
 MAX_ITEMS_POR_FEED = 8
-MODELOS = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-2.5-flash-lite"]
+MODELOS = ["gemini-3.5-flash", "gemini-3-flash", "gemini-3.1-flash-lite"]
 REINTENTOS = 3
 ESPERA_SEG = 30
 
