@@ -1,0 +1,16 @@
+[
+  {
+    "numero": "001",
+    "fecha": "2026-08-09",
+    "titulo": "México, el epicentro de la manufactura global de IA",
+    "resumen": "Mientras la guerra tecnológica mundial se intensifica, México ha emergido como el segundo mayor hub de fabricación para Inteligencia Artificial, solo por detrás de…",
+    "tip": {
+      "titulo": "Limpieza rápida con Pandas",
+      "herramienta": "Python",
+      "codigo": "import pandas as pd\n# Eliminar filas con valores nulos y normalizar nombres de columnas\ndf = df.dropna()\ndf.columns = [c.lower().replace(' ', '_') for c in df.columns]\n# Convertir fechas de formato objeto a datetime\ndf['fecha'] = pd.to_datetime(df['fecha'])",
+      "cuerpo": "Usa este bloque al inicio de cualquier script para estandarizar tus DataFrames y evitar errores de tipo en análisis posteriores."
+    },
+    "url_json": "https://alonsols04.github.io/codigo-abierto/ediciones/001.json",
+    "url_html": "https://alonsols04.github.io/codigo-abierto/ediciones/001.html"
+  }
+]
