@@ -1,0 +1,38 @@
+name: Código Abierto Semanal
+
+on:
+  schedule:
+    # Lunes 12:30 UTC = 7:30 AM hora de Lima (UTC-5)
+    - cron: "30 12 * * 1"
+  workflow_dispatch: {}   # tu "botón de actualizar": Actions -> Run workflow
+
+permissions:
+  contents: write
+
+jobs:
+  actualizar-pagina:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias
+        run: pip install requests feedparser
+
+      - name: Generar edición de la semana
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python generar.py
+
+      - name: Publicar (la web se actualiza sola)
+        run: |
+          git config user.name "codigo-abierto-bot"
+          git config user.email "actions@github.com"
+          git add docs/
+          git commit -m "Edición del $(date +'%Y-%m-%d')" || echo "Sin cambios"
+          git push
