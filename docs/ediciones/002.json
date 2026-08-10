@@ -1,0 +1,82 @@
+{
+  "numero": "002",
+  "fecha": "2026-08-10",
+  "titulo": "El fin de la supervisión: Anthropic acelera el paso",
+  "portada": {
+    "titulo": "El fin de la supervisión: Anthropic acelera el paso",
+    "cuerpo": "Anthropic ha decidido activar el 'modo automático' de Claude Code por defecto, reduciendo drásticamente la intervención humana en el desarrollo de software. Esta medida marca un cambio de paradigma donde la IA no solo sugiere código, sino que ejecuta tareas complejas de forma autónoma, obligando a los equipos técnicos a replantear sus flujos de trabajo.\n\nLa industria se mueve hacia un modelo donde la supervisión humana se vuelve más estratégica y menos táctica. La automatización ya no es una opción de mejora, sino un requisito operativo para mantener la competitividad en ciclos de desarrollo cada vez más cortos.",
+    "angulo_latam": "Para las empresas de software en Latinoamérica, esto representa una oportunidad crítica para escalar equipos de desarrollo sin aumentar linealmente los costos, pero exige una inversión inmediata en gobernanza y seguridad para evitar que la automatización genere deuda técnica incontrolable.",
+    "enlace": "https://techcrunch.com/2026/08/09/anthropic-is-turning-claude-codes-auto-mode-on-by-default/",
+    "fuente": "TechCrunch"
+  },
+  "ia": [
+    {
+      "titulo": "IA Agéntica: la nueva fuerza laboral de las empresas",
+      "cuerpo": "Salesforce reporta que las empresas han duplicado su fuerza laboral agéntica en el último año. Los agentes de IA ya no son solo chatbots, sino sistemas capaces de realizar tareas operativas complejas, desde la búsqueda de datos internos hasta la ejecución de acciones en nombre del usuario.",
+      "angulo_latam": "Las empresas latinoamericanas que logren integrar agentes en sus procesos de atención al cliente y ventas verán una ventaja competitiva inmediata, reduciendo la carga operativa en mercados donde el costo de captación de talento técnico especializado sigue siendo alto.",
+      "enlace": "",
+      "fuente": ""
+    },
+    {
+      "titulo": "Modelos pequeños para grandes resultados",
+      "cuerpo": "La tendencia se aleja de los modelos masivos de 70B parámetros. El uso de modelos pequeños (Small Language Models - SLMs) como el smolLM3 permite ejecutar pipelines de IA de forma eficiente, reduciendo costos de inferencia y aumentando la velocidad de respuesta en entornos de producción.",
+      "angulo_latam": "Esta es la clave para la adopción masiva de IA en la región: optimizar el uso de recursos computacionales. Para startups y PYMES en LATAM, los SLMs permiten implementar soluciones de IA de alta precisión sin depender de infraestructuras cloud costosas.",
+      "enlace": "https://www.kdnuggets.com/small-language-models-with-hugging-face-transformers-library-smollm3",
+      "fuente": "KDnuggets"
+    }
+  ],
+  "marketing": [
+    {
+      "titulo": "El gasto publicitario se rinde ante la IA",
+      "cuerpo": "Gartner proyecta que para 2028, más del 70% del gasto publicitario global se gestionará a través de plataformas de autoservicio impulsadas por IA. La intervención humana en la compra de medios pasará a un segundo plano, centrada en la estrategia creativa.",
+      "angulo_latam": "Los equipos de marketing en LATAM deben dejar de gestionar campañas manualmente para convertirse en 'arquitectos de sistemas de IA', enfocándose en la calidad de los datos de entrada y la supervisión de la lógica de los algoritmos de compra.",
+      "enlace": "https://www.marketingdirecto.com/anunciantes-general/publicaciones/ia-asomara-la-pezuna-gasto-publicitario-escala-global",
+      "fuente": "Marketing Directo"
+    },
+    {
+      "titulo": "Segunda mano: el nuevo estándar en la vuelta al cole",
+      "cuerpo": "El 73% de los consumidores españoles ya elige material escolar de segunda mano, priorizando la sostenibilidad y el ahorro. Este comportamiento refleja un cambio cultural que está impactando directamente en las estrategias de retail y fidelización de marcas.",
+      "angulo_latam": "Este modelo tiene un potencial enorme en LATAM. Las marcas que implementen plataformas de reventa o intercambio para sus propios productos no solo ganarán lealtad, sino que capturarán un segmento de mercado que prioriza la economía circular ante la inflación.",
+      "enlace": "https://www.marketingdirecto.com/anunciantes-general/publicaciones/segunda-mano-vuelta-al-cole-milanuncios-2026",
+      "fuente": "Marketing Directo"
+    }
+  ],
+  "datos": [
+    {
+      "titulo": "Análisis de datos: más allá de cargar archivos",
+      "cuerpo": "La carga de datos es solo el punto de partida. La verdadera labor analítica reside en la creación de modelos de datos (como en dbt) que transformen información cruda en activos listos para el negocio, asegurando que los hallazgos sean reproducibles.",
+      "angulo_latam": "Las empresas locales suelen sufrir de silos de datos; adoptar un enfoque de ingeniería de datos estructurada es vital para que las decisiones de negocio no dependan de reportes manuales en Excel que siempre tienen errores.",
+      "enlace": "https://towardsdatascience.com/i-thought-loading-data-was-the-finish-line-it-was-the-starting-point/",
+      "fuente": "Towards Data Science"
+    },
+    {
+      "titulo": "Matplotlib vs. Plotly: ¿qué elegir?",
+      "cuerpo": "Mientras Matplotlib sigue siendo el estándar para gráficos estáticos y publicaciones científicas, Plotly domina cuando se requiere exploración de datos interactiva. La elección depende de si el objetivo es la precisión del reporte final o la agilidad en el descubrimiento de insights.",
+      "angulo_latam": "Para los analistas de BI en la región, dominar Plotly es una habilidad de alto valor para crear dashboards interactivos que permitan a los stakeholders explorar los datos sin depender constantemente del equipo de datos.",
+      "enlace": "https://towardsdatascience.com/matplotlib-vs-plotly-which-python-chart-tool-should-you-choose/",
+      "fuente": "Towards Data Science"
+    }
+  ],
+  "automatizacion": [
+    {
+      "titulo": "Automatización de pruebas de software en hospitales",
+      "cuerpo": "Un hospital líder en EE.UU. implementó una solución de automatización de pruebas de regresión que permitió reducir el esfuerzo manual en un 95%, garantizando la estabilidad del sistema y manteniendo el cumplimiento normativo HIPAA.",
+      "antes_despues": "pruebas de regresión ejecutadas manualmente por testers → un proceso automatizado bajo gobernanza que escala sin sacrificar control",
+      "ahorro": "95% de reducción en esfuerzo manual",
+      "angulo_latam": "El sector salud en LATAM enfrenta retos similares de cumplimiento y alta carga operativa; adoptar pruebas automatizadas es la única vía para acelerar la transformación digital sin comprometer la seguridad del paciente.",
+      "enlace": "https://www.uipath.com/blog/industry-solutions/leading-us-hospital-automates-software-testing",
+      "fuente": "UiPath"
+    }
+  ],
+  "tip_analista": {
+    "titulo": "Limpieza rápida con Pandas",
+    "codigo": "import pandas as pd\n# Eliminar duplicados y rellenar nulos\ndf = df.drop_duplicates()\ndf['valor'] = df['valor'].fillna(df['valor'].mean())\n# Convertir a minúsculas para estandarizar categorías\ndf['categoria'] = df['categoria'].str.lower().str.strip()",
+    "cuerpo": "Usa este snippet al inicio de cualquier pipeline para asegurar la integridad básica de tus datos antes de modelar.",
+    "herramienta": "Python"
+  },
+  "dato": {
+    "cifra": "73%",
+    "contexto": "Porcentaje de consumidores que optan por productos de segunda mano ante la inflación, marcando una tendencia de consumo consciente."
+  },
+  "para_llevar": "La automatización no es para reemplazar personas, sino para eliminar la fricción operativa que impide crecer. Empieza pequeño: identifica un proceso que consuma más de 5 horas a la semana y automatízalo hoy. El futuro pertenece a quienes logren equilibrar la velocidad de la IA con la gobernanza de los datos."
+}
