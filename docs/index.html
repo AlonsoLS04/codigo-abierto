@@ -289,6 +289,23 @@ footer{border-top:1px solid var(--line);}
       <article class="snip rev" style="transition-delay:0ms">
         <header class="snip-top">
           <div style="min-width:0">
+            <p class="snip-lbl">Tip · edición #003</p>
+            <h3>Limpieza eficiente con Pandas</h3>
+          </div>
+          <span class="chip">Python</span>
+        </header>
+        <pre><code><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="cm"># Eliminar filas donde todos los valores son nulos</span>
+df = df.<span class="fn">dropna</span>(how=<span class="str">&#x27;all&#x27;</span>)
+<span class="cm"># Imputar valores nulos con la mediana</span>
+df<span class="str">[&#x27;ventas&#x27;]</span> = df<span class="str">[&#x27;ventas&#x27;]</span>.<span class="fn">fillna</span>(df<span class="str">[&#x27;ventas&#x27;]</span>.<span class="fn">median</span>())
+<span class="cm"># Convertir tipos de datos en bloque</span>
+df = df.<span class="fn">astype</span>({<span class="str">&#x27;id&#x27;</span>: <span class="str">&#x27;int&#x27;</span>, <span class="str">&#x27;precio&#x27;</span>: <span class="str">&#x27;float&#x27;</span>})</code></pre>
+        <p class="snip-pie">Usa estas operaciones vectorizadas para limpiar datasets masivos antes de enviarlos a modelos de ML; evitan los bucles lentos y reducen drásticamente el tiempo de preprocesamiento. <a href="ediciones/003.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
+      </article>
+      <article class="snip rev" style="transition-delay:100ms">
+        <header class="snip-top">
+          <div style="min-width:0">
             <p class="snip-lbl">Tip · edición #002</p>
             <h3>Limpieza rápida con Pandas</h3>
           </div>
@@ -302,7 +319,7 @@ df<span class="str">[&#x27;valor&#x27;]</span> = df<span class="str">[&#x27;valo
 df<span class="str">[&#x27;categoria&#x27;]</span> = df<span class="str">[&#x27;categoria&#x27;]</span>.str.<span class="fn">lower</span>().str.<span class="fn">strip</span>()</code></pre>
         <p class="snip-pie">Usa este snippet al inicio de cualquier pipeline para asegurar la integridad básica de tus datos antes de modelar. <a href="ediciones/002.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
       </article>
-      <article class="snip rev" style="transition-delay:100ms">
+      <article class="snip rev" style="transition-delay:200ms">
         <header class="snip-top">
           <div style="min-width:0">
             <p class="snip-lbl">Tip · edición #001</p>
@@ -317,20 +334,6 @@ df.columns = <span class="str">[c.lower().replace(&#x27; &#x27;, &#x27;_&#x27;) 
 <span class="cm"># Convertir fechas de formato objeto a datetime</span>
 df<span class="str">[&#x27;fecha&#x27;]</span> = pd.<span class="fn">to_datetime</span>(df<span class="str">[&#x27;fecha&#x27;]</span>)</code></pre>
         <p class="snip-pie">Usa este bloque al inicio de cualquier script para estandarizar tus DataFrames y evitar errores de tipo en análisis posteriores. <a href="ediciones/001.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
-      </article>
-      <article class="snip rev" style="transition-delay:200ms">
-        <header class="snip-top">
-          <div style="min-width:0">
-            <p class="snip-lbl">Tip de la semana</p>
-            <h3>Ventas del año anterior en DAX</h3>
-          </div>
-          <span class="chip">DAX</span>
-        </header>
-        <pre><code><span class="cm">// Compara periodos sin crear tablas extra</span>
-Ventas LY = <span class="fn">CALCULATE</span>(
-    <span class="str">[Ventas]</span>, <span class="fn">SAMEPERIODLASTYEAR</span>(Calendario<span class="str">[Fecha]</span>)
-)</code></pre>
-        <p class="snip-pie">Úsalo con una tabla de fechas marcada como calendario para evitar contextos raros.</p>
       </article></div>
     </div>
   </section>
@@ -343,6 +346,16 @@ Ventas LY = <span class="fn">CALCULATE</span>(
       </div>
       <ul class="lista">
       <li class="rev" style="transition-delay:0ms">
+        <a href="ediciones/003.html">
+          <div class="meta"><span class="n">#003</span><span class="f">17 de agosto, 2026</span></div>
+          <div style="min-width:0">
+            <h3>Stripe apuesta 7.000 millones a la fragmentación de la IA</h3>
+            <p>Stripe ha acordado la adquisición de OpenRouter por más de 7.000 millones de dólares, una cifra que pulveriza su valoración previa de 1.300 millones. La tesis detrás del…</p>
+            <span class="flecha">Leer edición →</span>
+          </div>
+        </a>
+      </li>
+      <li class="rev" style="transition-delay:70ms">
         <a href="ediciones/002.html">
           <div class="meta"><span class="n">#002</span><span class="f">10 de agosto, 2026</span></div>
           <div style="min-width:0">
@@ -352,7 +365,7 @@ Ventas LY = <span class="fn">CALCULATE</span>(
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:70ms">
+      <li class="rev" style="transition-delay:140ms">
         <a href="ediciones/001.html">
           <div class="meta"><span class="n">#001</span><span class="f">9 de agosto, 2026</span></div>
           <div style="min-width:0">

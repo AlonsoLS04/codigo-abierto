@@ -1,5 +1,19 @@
 [
   {
+    "numero": "003",
+    "fecha": "2026-08-17",
+    "titulo": "Stripe apuesta 7.000 millones a la fragmentación de la IA",
+    "resumen": "Stripe ha acordado la adquisición de OpenRouter por más de 7.000 millones de dólares, una cifra que pulveriza su valoración previa de 1.300 millones. La tesis detrás del…",
+    "tip": {
+      "titulo": "Limpieza eficiente con Pandas",
+      "herramienta": "Python",
+      "codigo": "import pandas as pd\n# Eliminar filas donde todos los valores son nulos\ndf = df.dropna(how='all')\n# Imputar valores nulos con la mediana\ndf['ventas'] = df['ventas'].fillna(df['ventas'].median())\n# Convertir tipos de datos en bloque\ndf = df.astype({'id': 'int', 'precio': 'float'})",
+      "cuerpo": "Usa estas operaciones vectorizadas para limpiar datasets masivos antes de enviarlos a modelos de ML; evitan los bucles lentos y reducen drásticamente el tiempo de preprocesamiento."
+    },
+    "url_json": "https://alonsols04.github.io/codigo-abierto/ediciones/003.json",
+    "url_html": "https://alonsols04.github.io/codigo-abierto/ediciones/003.html"
+  },
+  {
     "numero": "002",
     "fecha": "2026-08-10",
     "titulo": "El fin de la supervisión: Anthropic acelera el paso",
