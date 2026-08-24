@@ -1,5 +1,19 @@
 [
   {
+    "numero": "004",
+    "fecha": "2026-08-24",
+    "titulo": "Sam Altman admite que la IA no está transformando la economía tan rápido como esperaba",
+    "resumen": "El CEO de OpenAI ha reconocido recientemente que subestimó la inercia del sistema económico global. A pesar del hype y la capacidad técnica de modelos como GPT-4, la…",
+    "tip": {
+      "titulo": "Limpieza de datos rápida con Pandas",
+      "herramienta": "Python",
+      "codigo": "df.dropna(inplace=True)\ndf.columns = df.columns.str.strip().str.lower().str.replace(' ', '_')\ndf['fecha'] = pd.to_datetime(df['fecha'])\ndf.drop_duplicates(inplace=True)",
+      "cuerpo": "Este snippet limpia valores nulos, estandariza nombres de columnas a formato snake_case, convierte fechas y elimina duplicados en un solo bloque, ideal para el pre-procesamiento inicial de cualquier dataset."
+    },
+    "url_json": "https://alonsols04.github.io/codigo-abierto/ediciones/004.json",
+    "url_html": "https://alonsols04.github.io/codigo-abierto/ediciones/004.html"
+  },
+  {
     "numero": "003",
     "fecha": "2026-08-17",
     "titulo": "Stripe apuesta 7.000 millones a la fragmentación de la IA",
