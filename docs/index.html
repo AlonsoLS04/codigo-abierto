@@ -289,6 +289,20 @@ footer{border-top:1px solid var(--line);}
       <article class="snip rev" style="transition-delay:0ms">
         <header class="snip-top">
           <div style="min-width:0">
+            <p class="snip-lbl">Tip · edición #005</p>
+            <h3>Limpieza rápida con Pandas</h3>
+          </div>
+          <span class="chip">Python</span>
+        </header>
+        <pre><code><span class="kw">import</span> pandas <span class="kw">as</span> pd
+df<span class="str">[&#x27;col&#x27;]</span> = df<span class="str">[&#x27;col&#x27;]</span>.str.<span class="fn">strip</span>().str.<span class="fn">lower</span>()
+df = df.<span class="fn">drop_duplicates</span>()
+<span class="cm"># Elimina espacios, normaliza a minúsculas y quita duplicados en una pasada</span></code></pre>
+        <p class="snip-pie">Usa este bloque al cargar cualquier dataset para evitar errores comunes de inconsistencia en strings. <a href="ediciones/005.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
+      </article>
+      <article class="snip rev" style="transition-delay:100ms">
+        <header class="snip-top">
+          <div style="min-width:0">
             <p class="snip-lbl">Tip · edición #004</p>
             <h3>Limpieza de datos rápida con Pandas</h3>
           </div>
@@ -300,7 +314,7 @@ df<span class="str">[&#x27;fecha&#x27;]</span> = pd.<span class="fn">to_datetime
 df.<span class="fn">drop_duplicates</span>(inplace=<span class="kw">True</span>)</code></pre>
         <p class="snip-pie">Este snippet limpia valores nulos, estandariza nombres de columnas a formato snake_case, convierte fechas y elimina duplicados en un solo bloque, ideal para el pre-procesamiento inicial de cualquier dataset. <a href="ediciones/004.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
       </article>
-      <article class="snip rev" style="transition-delay:100ms">
+      <article class="snip rev" style="transition-delay:200ms">
         <header class="snip-top">
           <div style="min-width:0">
             <p class="snip-lbl">Tip · edición #003</p>
@@ -316,22 +330,6 @@ df<span class="str">[&#x27;ventas&#x27;]</span> = df<span class="str">[&#x27;ven
 <span class="cm"># Convertir tipos de datos en bloque</span>
 df = df.<span class="fn">astype</span>({<span class="str">&#x27;id&#x27;</span>: <span class="str">&#x27;int&#x27;</span>, <span class="str">&#x27;precio&#x27;</span>: <span class="str">&#x27;float&#x27;</span>})</code></pre>
         <p class="snip-pie">Usa estas operaciones vectorizadas para limpiar datasets masivos antes de enviarlos a modelos de ML; evitan los bucles lentos y reducen drásticamente el tiempo de preprocesamiento. <a href="ediciones/003.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
-      </article>
-      <article class="snip rev" style="transition-delay:200ms">
-        <header class="snip-top">
-          <div style="min-width:0">
-            <p class="snip-lbl">Tip · edición #002</p>
-            <h3>Limpieza rápida con Pandas</h3>
-          </div>
-          <span class="chip">Python</span>
-        </header>
-        <pre><code><span class="kw">import</span> pandas <span class="kw">as</span> pd
-<span class="cm"># Eliminar duplicados y rellenar nulos</span>
-df = df.<span class="fn">drop_duplicates</span>()
-df<span class="str">[&#x27;valor&#x27;]</span> = df<span class="str">[&#x27;valor&#x27;]</span>.<span class="fn">fillna</span>(df<span class="str">[&#x27;valor&#x27;]</span>.<span class="fn">mean</span>())
-<span class="cm"># Convertir a minúsculas para estandarizar categorías</span>
-df<span class="str">[&#x27;categoria&#x27;]</span> = df<span class="str">[&#x27;categoria&#x27;]</span>.str.<span class="fn">lower</span>().str.<span class="fn">strip</span>()</code></pre>
-        <p class="snip-pie">Usa este snippet al inicio de cualquier pipeline para asegurar la integridad básica de tus datos antes de modelar. <a href="ediciones/002.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
       </article></div>
     </div>
   </section>
@@ -344,6 +342,16 @@ df<span class="str">[&#x27;categoria&#x27;]</span> = df<span class="str">[&#x27;
       </div>
       <ul class="lista">
       <li class="rev" style="transition-delay:0ms">
+        <a href="ediciones/005.html">
+          <div class="meta"><span class="n">#005</span><span class="f">31 de agosto, 2026</span></div>
+          <div style="min-width:0">
+            <h3>El fin de una era en Apple: Tim Cook cede el mando</h3>
+            <p>Tras 15 años transformando a Apple en una potencia global, Tim Cook ha dejado oficialmente el cargo de CEO. John Ternus, veterano en hardware y construcción de producto,…</p>
+            <span class="flecha">Leer edición →</span>
+          </div>
+        </a>
+      </li>
+      <li class="rev" style="transition-delay:70ms">
         <a href="ediciones/004.html">
           <div class="meta"><span class="n">#004</span><span class="f">24 de agosto, 2026</span></div>
           <div style="min-width:0">
@@ -353,7 +361,7 @@ df<span class="str">[&#x27;categoria&#x27;]</span> = df<span class="str">[&#x27;
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:70ms">
+      <li class="rev" style="transition-delay:140ms">
         <a href="ediciones/003.html">
           <div class="meta"><span class="n">#003</span><span class="f">17 de agosto, 2026</span></div>
           <div style="min-width:0">
@@ -363,7 +371,7 @@ df<span class="str">[&#x27;categoria&#x27;]</span> = df<span class="str">[&#x27;
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:140ms">
+      <li class="rev" style="transition-delay:210ms">
         <a href="ediciones/002.html">
           <div class="meta"><span class="n">#002</span><span class="f">10 de agosto, 2026</span></div>
           <div style="min-width:0">
@@ -373,7 +381,7 @@ df<span class="str">[&#x27;categoria&#x27;]</span> = df<span class="str">[&#x27;
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:210ms">
+      <li class="rev" style="transition-delay:280ms">
         <a href="ediciones/001.html">
           <div class="meta"><span class="n">#001</span><span class="f">9 de agosto, 2026</span></div>
           <div style="min-width:0">

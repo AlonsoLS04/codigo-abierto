@@ -1,5 +1,19 @@
 [
   {
+    "numero": "005",
+    "fecha": "2026-08-31",
+    "titulo": "El fin de una era en Apple: Tim Cook cede el mando",
+    "resumen": "Tras 15 años transformando a Apple en una potencia global, Tim Cook ha dejado oficialmente el cargo de CEO. John Ternus, veterano en hardware y construcción de producto,…",
+    "tip": {
+      "titulo": "Limpieza rápida con Pandas",
+      "herramienta": "Python",
+      "codigo": "import pandas as pd\ndf['col'] = df['col'].str.strip().str.lower()\ndf = df.drop_duplicates()\n# Elimina espacios, normaliza a minúsculas y quita duplicados en una pasada",
+      "cuerpo": "Usa este bloque al cargar cualquier dataset para evitar errores comunes de inconsistencia en strings."
+    },
+    "url_json": "https://alonsols04.github.io/codigo-abierto/ediciones/005.json",
+    "url_html": "https://alonsols04.github.io/codigo-abierto/ediciones/005.html"
+  },
+  {
     "numero": "004",
     "fecha": "2026-08-24",
     "titulo": "Sam Altman admite que la IA no está transformando la economía tan rápido como esperaba",

@@ -1,0 +1,82 @@
+{
+  "numero": "005",
+  "fecha": "2026-08-31",
+  "titulo": "El fin de una era en Apple: Tim Cook cede el mando",
+  "portada": {
+    "titulo": "El fin de una era en Apple: Tim Cook cede el mando",
+    "cuerpo": "Tras 15 años transformando a Apple en una potencia global, Tim Cook ha dejado oficialmente el cargo de CEO. John Ternus, veterano en hardware y construcción de producto, asume la dirección en un momento crítico donde la compañía intenta equilibrar su legado de hardware con la urgencia de liderar en el terreno de la IA.\n\nEste relevo no llega solo: Phil Schiller también abandona la jefatura de la App Store, marcando una reestructuración profunda en la cúpula directiva. La nueva etapa de Apple bajo Ternus dependerá de su capacidad para integrar agentes inteligentes sin sacrificar la experiencia de usuario que ha definido a la marca.",
+    "angulo_latam": "Para el mercado regional, este cambio significa mayor incertidumbre sobre la estrategia de servicios y disponibilidad de nuevas funciones de IA en ecosistemas que suelen recibir las novedades con retraso. La apuesta por un 'constructor de producto' sugiere que la calidad del hardware seguirá siendo la prioridad, incluso ante la presión de los competidores.",
+    "enlace": "https://techcrunch.com/2026/08/31/tim-cooks-parting-message-apple-is-in-the-hands-of-a-product-builder/",
+    "fuente": "TechCrunch"
+  },
+  "ia": [
+    {
+      "titulo": "Agentes de IA: el ROI llega a los ocho meses",
+      "cuerpo": "Un estudio de Salesforce confirma que los agentes de IA están pasando de ser un experimento a una realidad rentable. El éxito no depende del modelo, sino de la calidad de los datos y de una supervisión humana constante desde el día uno.",
+      "angulo_latam": "Las empresas latinoamericanas deben dejar de ver la IA como un chat de atención y empezar a integrarla en sus stacks de datos existentes para ver retornos reales en menos de un año.",
+      "enlace": "https://www.marketingdirecto.com/digital-general/digital/agentes-ia-alcanzan-roi-significativo-ocho-meses-segun-estudio-salesforce",
+      "fuente": "Marketing Directo"
+    },
+    {
+      "titulo": "Debian da luz verde al uso de IA",
+      "cuerpo": "La distribución Linux Debian ha votado a favor de permitir el uso de herramientas de IA en sus procesos de desarrollo y mantenimiento. La comunidad reconoce que el uso responsable mejora la productividad sin eximir al autor de la responsabilidad final del código.",
+      "angulo_latam": "Esto valida la adopción masiva de copilotos de programación en equipos de desarrollo en LATAM, legitimando el uso de estas herramientas en entornos críticos de código abierto.",
+      "enlace": "https://www.theverge.com/tech/986789/linux-debian-generative-ai-policy",
+      "fuente": "The Verge"
+    }
+  ],
+  "marketing": [
+    {
+      "titulo": "Influencers: la autenticidad ya no es opcional",
+      "cuerpo": "María Majón, CEO de Let’s Be Influenced, advierte que la audiencia ha saturado el modelo tradicional de influencers. La falta de autenticidad se castiga con indiferencia, marcando el fin de una era donde bastaba con tener alcance.",
+      "angulo_latam": "El mercado latinoamericano, muy dependiente del marketing de influencia, debe pivotar hacia micro-comunidades donde la confianza valga más que el número de seguidores.",
+      "enlace": "https://www.marketingdirecto.com/marketing-general/entrevistas/caida-influencers-entrevista-maria-majon-lets-be-influenced",
+      "fuente": "Marketing Directo"
+    },
+    {
+      "titulo": "Zalando y la comedia como herramienta de conversión",
+      "cuerpo": "La marca ha lanzado una campaña con Lily Collins que transforma el dolor de cabeza cotidiano de '¿qué me pongo?' en una narrativa cómica. Es un ejemplo de cómo el contenido de entretenimiento supera al anuncio tradicional.",
+      "angulo_latam": "Las marcas locales deben buscar este tipo de storytelling emocional para conectar con un consumidor latino que valora el humor y la cercanía en la publicidad.",
+      "enlace": "https://www.marketingdirecto.com/creacion/campanas-de-marketing/zalando-se-mete-cabeza-lily-collins-para-resolver-eterno-que-me-pongo",
+      "fuente": "Marketing Directo"
+    }
+  ],
+  "datos": [
+    {
+      "titulo": "Por qué la complejidad en RAG debe ser ganada",
+      "cuerpo": "No todos los sistemas RAG necesitan reranking o agentes complejos desde el inicio. Es preferible comenzar con una búsqueda híbrida y añadir capas solo cuando los modos de fallo lo exijan.",
+      "angulo_latam": "Equipos de datos en la región suelen sobre-ingenierizar soluciones. Este enfoque ahorra recursos y evita la frustración de mantener infraestructuras innecesariamente complejas.",
+      "enlace": "https://towardsdatascience.com/why-rag-complexity-should-be-earned/",
+      "fuente": "Towards Data Science"
+    },
+    {
+      "titulo": "La trampa del JSON perfecto en LLMs",
+      "cuerpo": "Un modelo puede devolver un JSON sintácticamente correcto y aun así estar completamente equivocado. La validación estructural no sustituye a la validación de negocio.",
+      "angulo_latam": "Crucial para analistas en LATAM que automatizan reportes mediante IA: nunca confíen en el formato; siempre verifiquen el contenido contra la fuente de verdad.",
+      "enlace": "https://towardsdatascience.com/your-llm-can-return-perfect-json-and-still-be-wrong/",
+      "fuente": "Towards Data Science"
+    }
+  ],
+  "automatizacion": [
+    {
+      "titulo": "Agentes de escritorio para usuarios no técnicos",
+      "cuerpo": "Anthropic lanzó Cowork, una capacidad que permite a usuarios no técnicos ejecutar agentes en sus archivos locales. La herramienta fue construida en menos de dos semanas usando Claude Code.",
+      "antes_despues": "procesar archivos y extraer información manualmente → un agente que opera directamente sobre el sistema de archivos local.",
+      "ahorro": "",
+      "angulo_latam": "Reduce la barrera de entrada para que equipos administrativos en LATAM empiecen a automatizar tareas de gestión documental sin depender del equipo de IT.",
+      "enlace": "https://venturebeat.com/technology/anthropic-launches-cowork-a-claude-desktop-agent-that-works-in-your-files-no",
+      "fuente": "VentureBeat"
+    }
+  ],
+  "tip_analista": {
+    "titulo": "Limpieza rápida con Pandas",
+    "codigo": "import pandas as pd\ndf['col'] = df['col'].str.strip().str.lower()\ndf = df.drop_duplicates()\n# Elimina espacios, normaliza a minúsculas y quita duplicados en una pasada",
+    "cuerpo": "Usa este bloque al cargar cualquier dataset para evitar errores comunes de inconsistencia en strings.",
+    "herramienta": "Python"
+  },
+  "dato": {
+    "cifra": "95%",
+    "contexto": "El porcentaje de proyectos de IA que se estancan en la fase piloto por falta de una capa de orquestación de procesos de negocio."
+  },
+  "para_llevar": "La tecnología no es el cuello de botella; la falta de procesos claros y gobernanza sí lo es. Deja de perseguir el modelo más inteligente y empieza a construir el sistema que conecte tus herramientas de forma confiable."
+}
