@@ -1,5 +1,19 @@
 [
   {
+    "numero": "006",
+    "fecha": "2026-09-07",
+    "titulo": "NVIDIA adquiere Hugging Face: el nuevo mapa de la IA abierta",
+    "resumen": "NVIDIA ha confirmado la adquisición de Hugging Face por 13.000 millones de dólares, una cifra astronómica que consolida al fabricante de chips como el dueño de facto del…",
+    "tip": {
+      "titulo": "Optimización de memoria en Pandas",
+      "herramienta": "Python",
+      "codigo": "def reduce_mem_usage(df):\n    for col in df.columns:\n        col_type = df[col].dtype\n        if col_type != object:\n            df[col] = pd.to_numeric(df[col], downcast='integer')\n    return df",
+      "cuerpo": "Reduce drásticamente el consumo de RAM al convertir tipos de datos numéricos a su representación más pequeña posible antes de procesar grandes datasets."
+    },
+    "url_json": "https://alonsols04.github.io/codigo-abierto/ediciones/006.json",
+    "url_html": "https://alonsols04.github.io/codigo-abierto/ediciones/006.html"
+  },
+  {
     "numero": "005",
     "fecha": "2026-08-31",
     "titulo": "El fin de una era en Apple: Tim Cook cede el mando",
