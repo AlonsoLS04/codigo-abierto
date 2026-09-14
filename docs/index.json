@@ -1,5 +1,19 @@
 [
   {
+    "numero": "007",
+    "fecha": "2026-09-14",
+    "titulo": "La nueva era de Siri: ¿Apple finalmente domina la IA?",
+    "resumen": "Apple ha lanzado oficialmente iOS 27 y macOS 27, marcando un antes y un después para Siri. La integración de 'Siri AI' promete una experiencia de usuario más coherente y…",
+    "tip": {
+      "titulo": "Limpieza eficiente de CSV",
+      "herramienta": "Python",
+      "codigo": "import pandas as pd\n# Carga y limpieza basica en una linea\ndf = pd.read_csv('data.csv').dropna(how='all')\n# Eliminar duplicados y normalizar columnas\ndf = df.drop_duplicates().rename(columns=str.lower)\ndf.to_csv('data_clean.csv', index=False)",
+      "cuerpo": "Úsalo para estandarizar archivos CSV de entrada antes de cargarlos en cualquier pipeline de datos, asegurando que los nombres de columnas sean consistentes y eliminando filas vacías."
+    },
+    "url_json": "https://alonsols04.github.io/codigo-abierto/ediciones/007.json",
+    "url_html": "https://alonsols04.github.io/codigo-abierto/ediciones/007.html"
+  },
+  {
     "numero": "006",
     "fecha": "2026-09-07",
     "titulo": "NVIDIA adquiere Hugging Face: el nuevo mapa de la IA abierta",

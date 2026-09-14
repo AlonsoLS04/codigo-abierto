@@ -289,6 +289,22 @@ footer{border-top:1px solid var(--line);}
       <article class="snip rev" style="transition-delay:0ms">
         <header class="snip-top">
           <div style="min-width:0">
+            <p class="snip-lbl">Tip · edición #007</p>
+            <h3>Limpieza eficiente de CSV</h3>
+          </div>
+          <span class="chip">Python</span>
+        </header>
+        <pre><code><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="cm"># Carga y limpieza basica en una linea</span>
+df = pd.<span class="fn">read_csv</span>(<span class="str">&#x27;data.csv&#x27;</span>).<span class="fn">dropna</span>(how=<span class="str">&#x27;all&#x27;</span>)
+<span class="cm"># Eliminar duplicados y normalizar columnas</span>
+df = df.<span class="fn">drop_duplicates</span>().<span class="fn">rename</span>(columns=str.lower)
+df.<span class="fn">to_csv</span>(<span class="str">&#x27;data_clean.csv&#x27;</span>, index=<span class="kw">False</span>)</code></pre>
+        <p class="snip-pie">Úsalo para estandarizar archivos CSV de entrada antes de cargarlos en cualquier pipeline de datos, asegurando que los nombres de columnas sean consistentes y eliminando filas vacías. <a href="ediciones/007.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
+      </article>
+      <article class="snip rev" style="transition-delay:100ms">
+        <header class="snip-top">
+          <div style="min-width:0">
             <p class="snip-lbl">Tip · edición #006</p>
             <h3>Optimización de memoria en Pandas</h3>
           </div>
@@ -302,7 +318,7 @@ footer{border-top:1px solid var(--line);}
     <span class="kw">return</span> df</code></pre>
         <p class="snip-pie">Reduce drásticamente el consumo de RAM al convertir tipos de datos numéricos a su representación más pequeña posible antes de procesar grandes datasets. <a href="ediciones/006.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
       </article>
-      <article class="snip rev" style="transition-delay:100ms">
+      <article class="snip rev" style="transition-delay:200ms">
         <header class="snip-top">
           <div style="min-width:0">
             <p class="snip-lbl">Tip · edición #005</p>
@@ -315,20 +331,6 @@ df<span class="str">[&#x27;col&#x27;]</span> = df<span class="str">[&#x27;col&#x
 df = df.<span class="fn">drop_duplicates</span>()
 <span class="cm"># Elimina espacios, normaliza a minúsculas y quita duplicados en una pasada</span></code></pre>
         <p class="snip-pie">Usa este bloque al cargar cualquier dataset para evitar errores comunes de inconsistencia en strings. <a href="ediciones/005.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
-      </article>
-      <article class="snip rev" style="transition-delay:200ms">
-        <header class="snip-top">
-          <div style="min-width:0">
-            <p class="snip-lbl">Tip · edición #004</p>
-            <h3>Limpieza de datos rápida con Pandas</h3>
-          </div>
-          <span class="chip">Python</span>
-        </header>
-        <pre><code>df.<span class="fn">dropna</span>(inplace=<span class="kw">True</span>)
-df.columns = df.columns.str.<span class="fn">strip</span>().str.<span class="fn">lower</span>().str.<span class="fn">replace</span>(<span class="str">&#x27; &#x27;</span>, <span class="str">&#x27;_&#x27;</span>)
-df<span class="str">[&#x27;fecha&#x27;]</span> = pd.<span class="fn">to_datetime</span>(df<span class="str">[&#x27;fecha&#x27;]</span>)
-df.<span class="fn">drop_duplicates</span>(inplace=<span class="kw">True</span>)</code></pre>
-        <p class="snip-pie">Este snippet limpia valores nulos, estandariza nombres de columnas a formato snake_case, convierte fechas y elimina duplicados en un solo bloque, ideal para el pre-procesamiento inicial de cualquier dataset. <a href="ediciones/004.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
       </article></div>
     </div>
   </section>
@@ -341,6 +343,16 @@ df.<span class="fn">drop_duplicates</span>(inplace=<span class="kw">True</span>)
       </div>
       <ul class="lista">
       <li class="rev" style="transition-delay:0ms">
+        <a href="ediciones/007.html">
+          <div class="meta"><span class="n">#007</span><span class="f">14 de septiembre, 2026</span></div>
+          <div style="min-width:0">
+            <h3>La nueva era de Siri: ¿Apple finalmente domina la IA?</h3>
+            <p>Apple ha lanzado oficialmente iOS 27 y macOS 27, marcando un antes y un después para Siri. La integración de &#x27;Siri AI&#x27; promete una experiencia de usuario más coherente y…</p>
+            <span class="flecha">Leer edición →</span>
+          </div>
+        </a>
+      </li>
+      <li class="rev" style="transition-delay:70ms">
         <a href="ediciones/006.html">
           <div class="meta"><span class="n">#006</span><span class="f">7 de septiembre, 2026</span></div>
           <div style="min-width:0">
@@ -350,7 +362,7 @@ df.<span class="fn">drop_duplicates</span>(inplace=<span class="kw">True</span>)
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:70ms">
+      <li class="rev" style="transition-delay:140ms">
         <a href="ediciones/005.html">
           <div class="meta"><span class="n">#005</span><span class="f">31 de agosto, 2026</span></div>
           <div style="min-width:0">
@@ -360,7 +372,7 @@ df.<span class="fn">drop_duplicates</span>(inplace=<span class="kw">True</span>)
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:140ms">
+      <li class="rev" style="transition-delay:210ms">
         <a href="ediciones/004.html">
           <div class="meta"><span class="n">#004</span><span class="f">24 de agosto, 2026</span></div>
           <div style="min-width:0">
@@ -370,7 +382,7 @@ df.<span class="fn">drop_duplicates</span>(inplace=<span class="kw">True</span>)
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:210ms">
+      <li class="rev" style="transition-delay:280ms">
         <a href="ediciones/003.html">
           <div class="meta"><span class="n">#003</span><span class="f">17 de agosto, 2026</span></div>
           <div style="min-width:0">
@@ -380,7 +392,7 @@ df.<span class="fn">drop_duplicates</span>(inplace=<span class="kw">True</span>)
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:280ms">
+      <li class="rev" style="transition-delay:350ms">
         <a href="ediciones/002.html">
           <div class="meta"><span class="n">#002</span><span class="f">10 de agosto, 2026</span></div>
           <div style="min-width:0">
@@ -390,7 +402,7 @@ df.<span class="fn">drop_duplicates</span>(inplace=<span class="kw">True</span>)
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:350ms">
+      <li class="rev" style="transition-delay:420ms">
         <a href="ediciones/001.html">
           <div class="meta"><span class="n">#001</span><span class="f">9 de agosto, 2026</span></div>
           <div style="min-width:0">
