@@ -1,5 +1,19 @@
 [
   {
+    "numero": "008",
+    "fecha": "2026-09-21",
+    "titulo": "El fin de la contabilidad manual y el despertar de los agentes autónomos",
+    "resumen": "Esta semana marca un punto de inflexión en la automatización operativa. El lanzamiento de Tabby, una herramienta diseñada para hacer obsoleta la contabilidad manual…",
+    "tip": {
+      "titulo": "Optimización rápida en Polars",
+      "herramienta": "Python",
+      "codigo": "import polars as pl\n# Usa el optimizador de consultas nativo\nq = (pl.scan_csv('data.csv')\n    .filter(pl.col('ventas') > 1000)\n    .group_by('region')\n    .agg(pl.col('monto').sum()))\nprint(q.collect())",
+      "cuerpo": "Usa 'scan_csv' en lugar de 'read_csv' para activar el motor de optimización de consultas de Polars, lo que permite procesar archivos más grandes que la memoria RAM disponible."
+    },
+    "url_json": "https://alonsols04.github.io/codigo-abierto/ediciones/008.json",
+    "url_html": "https://alonsols04.github.io/codigo-abierto/ediciones/008.html"
+  },
+  {
     "numero": "007",
     "fecha": "2026-09-14",
     "titulo": "La nueva era de Siri: ¿Apple finalmente domina la IA?",

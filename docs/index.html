@@ -289,6 +289,23 @@ footer{border-top:1px solid var(--line);}
       <article class="snip rev" style="transition-delay:0ms">
         <header class="snip-top">
           <div style="min-width:0">
+            <p class="snip-lbl">Tip · edición #008</p>
+            <h3>Optimización rápida en Polars</h3>
+          </div>
+          <span class="chip">Python</span>
+        </header>
+        <pre><code><span class="kw">import</span> polars <span class="kw">as</span> pl
+<span class="cm"># Usa el optimizador de consultas nativo</span>
+q = (pl.<span class="fn">scan_csv</span>(<span class="str">&#x27;data.csv&#x27;</span>)
+    .<span class="fn">filter</span>(pl.<span class="fn">col</span>(<span class="str">&#x27;ventas&#x27;</span>) &gt; <span class="nm">1000</span>)
+    .<span class="fn">group_by</span>(<span class="str">&#x27;region&#x27;</span>)
+    .<span class="fn">agg</span>(pl.<span class="fn">col</span>(<span class="str">&#x27;monto&#x27;</span>).<span class="fn">sum</span>()))
+<span class="fn">print</span>(q.<span class="fn">collect</span>())</code></pre>
+        <p class="snip-pie">Usa &#x27;scan_csv&#x27; en lugar de &#x27;read_csv&#x27; para activar el motor de optimización de consultas de Polars, lo que permite procesar archivos más grandes que la memoria RAM disponible. <a href="ediciones/008.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
+      </article>
+      <article class="snip rev" style="transition-delay:100ms">
+        <header class="snip-top">
+          <div style="min-width:0">
             <p class="snip-lbl">Tip · edición #007</p>
             <h3>Limpieza eficiente de CSV</h3>
           </div>
@@ -302,7 +319,7 @@ df = df.<span class="fn">drop_duplicates</span>().<span class="fn">rename</span>
 df.<span class="fn">to_csv</span>(<span class="str">&#x27;data_clean.csv&#x27;</span>, index=<span class="kw">False</span>)</code></pre>
         <p class="snip-pie">Úsalo para estandarizar archivos CSV de entrada antes de cargarlos en cualquier pipeline de datos, asegurando que los nombres de columnas sean consistentes y eliminando filas vacías. <a href="ediciones/007.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
       </article>
-      <article class="snip rev" style="transition-delay:100ms">
+      <article class="snip rev" style="transition-delay:200ms">
         <header class="snip-top">
           <div style="min-width:0">
             <p class="snip-lbl">Tip · edición #006</p>
@@ -317,20 +334,6 @@ df.<span class="fn">to_csv</span>(<span class="str">&#x27;data_clean.csv&#x27;</
             df<span class="str">[col]</span> = pd.<span class="fn">to_numeric</span>(df<span class="str">[col]</span>, downcast=<span class="str">&#x27;integer&#x27;</span>)
     <span class="kw">return</span> df</code></pre>
         <p class="snip-pie">Reduce drásticamente el consumo de RAM al convertir tipos de datos numéricos a su representación más pequeña posible antes de procesar grandes datasets. <a href="ediciones/006.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
-      </article>
-      <article class="snip rev" style="transition-delay:200ms">
-        <header class="snip-top">
-          <div style="min-width:0">
-            <p class="snip-lbl">Tip · edición #005</p>
-            <h3>Limpieza rápida con Pandas</h3>
-          </div>
-          <span class="chip">Python</span>
-        </header>
-        <pre><code><span class="kw">import</span> pandas <span class="kw">as</span> pd
-df<span class="str">[&#x27;col&#x27;]</span> = df<span class="str">[&#x27;col&#x27;]</span>.str.<span class="fn">strip</span>().str.<span class="fn">lower</span>()
-df = df.<span class="fn">drop_duplicates</span>()
-<span class="cm"># Elimina espacios, normaliza a minúsculas y quita duplicados en una pasada</span></code></pre>
-        <p class="snip-pie">Usa este bloque al cargar cualquier dataset para evitar errores comunes de inconsistencia en strings. <a href="ediciones/005.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
       </article></div>
     </div>
   </section>
@@ -343,6 +346,16 @@ df = df.<span class="fn">drop_duplicates</span>()
       </div>
       <ul class="lista">
       <li class="rev" style="transition-delay:0ms">
+        <a href="ediciones/008.html">
+          <div class="meta"><span class="n">#008</span><span class="f">21 de septiembre, 2026</span></div>
+          <div style="min-width:0">
+            <h3>El fin de la contabilidad manual y el despertar de los agentes autónomos</h3>
+            <p>Esta semana marca un punto de inflexión en la automatización operativa. El lanzamiento de Tabby, una herramienta diseñada para hacer obsoleta la contabilidad manual…</p>
+            <span class="flecha">Leer edición →</span>
+          </div>
+        </a>
+      </li>
+      <li class="rev" style="transition-delay:70ms">
         <a href="ediciones/007.html">
           <div class="meta"><span class="n">#007</span><span class="f">14 de septiembre, 2026</span></div>
           <div style="min-width:0">
@@ -352,7 +365,7 @@ df = df.<span class="fn">drop_duplicates</span>()
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:70ms">
+      <li class="rev" style="transition-delay:140ms">
         <a href="ediciones/006.html">
           <div class="meta"><span class="n">#006</span><span class="f">7 de septiembre, 2026</span></div>
           <div style="min-width:0">
@@ -362,7 +375,7 @@ df = df.<span class="fn">drop_duplicates</span>()
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:140ms">
+      <li class="rev" style="transition-delay:210ms">
         <a href="ediciones/005.html">
           <div class="meta"><span class="n">#005</span><span class="f">31 de agosto, 2026</span></div>
           <div style="min-width:0">
@@ -372,7 +385,7 @@ df = df.<span class="fn">drop_duplicates</span>()
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:210ms">
+      <li class="rev" style="transition-delay:280ms">
         <a href="ediciones/004.html">
           <div class="meta"><span class="n">#004</span><span class="f">24 de agosto, 2026</span></div>
           <div style="min-width:0">
@@ -382,7 +395,7 @@ df = df.<span class="fn">drop_duplicates</span>()
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:280ms">
+      <li class="rev" style="transition-delay:350ms">
         <a href="ediciones/003.html">
           <div class="meta"><span class="n">#003</span><span class="f">17 de agosto, 2026</span></div>
           <div style="min-width:0">
@@ -392,7 +405,7 @@ df = df.<span class="fn">drop_duplicates</span>()
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:350ms">
+      <li class="rev" style="transition-delay:420ms">
         <a href="ediciones/002.html">
           <div class="meta"><span class="n">#002</span><span class="f">10 de agosto, 2026</span></div>
           <div style="min-width:0">
