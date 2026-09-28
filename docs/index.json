@@ -1,5 +1,19 @@
 [
   {
+    "numero": "009",
+    "fecha": "2026-09-28",
+    "titulo": "La era de los agentes autónomos: entre la innovación y el caos",
+    "resumen": "La industria tecnológica está en plena transición hacia los agentes autónomos, con Meta lanzando su plataforma empresarial y Shopify integrando agentes en sus procesos…",
+    "tip": {
+      "titulo": "Validación rápida de Data Drift",
+      "herramienta": "Python",
+      "codigo": "from sklearn.ensemble import RandomForestClassifier\nfrom sklearn.model_selection import cross_val_score\n# Si el modelo clasifica bien entre train y test,\n# significa que hay un drift significativo entre ambos datasets.\nclf = RandomForestClassifier().fit(X_combined, y_labels)\nscore = cross_val_score(clf, X_combined, y_labels, cv=5).mean()\nprint(f'AUC Score: {score}')",
+      "cuerpo": "Utiliza un clasificador para intentar distinguir entre tus datos de entrenamiento y los de producción; si el AUC es superior a 0.7, tus datos han cambiado y el modelo requiere reentrenamiento."
+    },
+    "url_json": "https://alonsols04.github.io/codigo-abierto/ediciones/009.json",
+    "url_html": "https://alonsols04.github.io/codigo-abierto/ediciones/009.html"
+  },
+  {
     "numero": "008",
     "fecha": "2026-09-21",
     "titulo": "El fin de la contabilidad manual y el despertar de los agentes autónomos",

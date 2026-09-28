@@ -289,6 +289,23 @@ footer{border-top:1px solid var(--line);}
       <article class="snip rev" style="transition-delay:0ms">
         <header class="snip-top">
           <div style="min-width:0">
+            <p class="snip-lbl">Tip · edición #009</p>
+            <h3>Validación rápida de Data Drift</h3>
+          </div>
+          <span class="chip">Python</span>
+        </header>
+        <pre><code><span class="kw">from</span> sklearn.ensemble <span class="kw">import</span> RandomForestClassifier
+<span class="kw">from</span> sklearn.model_selection <span class="kw">import</span> cross_val_score
+<span class="cm"># Si el modelo clasifica bien entre train y test,</span>
+<span class="cm"># significa que hay un drift significativo entre ambos datasets.</span>
+clf = <span class="fn">RandomForestClassifier</span>().<span class="fn">fit</span>(X_combined, y_labels)
+score = <span class="fn">cross_val_score</span>(clf, X_combined, y_labels, cv=<span class="nm">5</span>).<span class="fn">mean</span>()
+<span class="fn">print</span>(f<span class="str">&#x27;AUC Score: {score}&#x27;</span>)</code></pre>
+        <p class="snip-pie">Utiliza un clasificador para intentar distinguir entre tus datos de entrenamiento y los de producción; si el AUC es superior a 0.7, tus datos han cambiado y el modelo requiere reentrenamiento. <a href="ediciones/009.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
+      </article>
+      <article class="snip rev" style="transition-delay:100ms">
+        <header class="snip-top">
+          <div style="min-width:0">
             <p class="snip-lbl">Tip · edición #008</p>
             <h3>Optimización rápida en Polars</h3>
           </div>
@@ -303,7 +320,7 @@ q = (pl.<span class="fn">scan_csv</span>(<span class="str">&#x27;data.csv&#x27;<
 <span class="fn">print</span>(q.<span class="fn">collect</span>())</code></pre>
         <p class="snip-pie">Usa &#x27;scan_csv&#x27; en lugar de &#x27;read_csv&#x27; para activar el motor de optimización de consultas de Polars, lo que permite procesar archivos más grandes que la memoria RAM disponible. <a href="ediciones/008.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
       </article>
-      <article class="snip rev" style="transition-delay:100ms">
+      <article class="snip rev" style="transition-delay:200ms">
         <header class="snip-top">
           <div style="min-width:0">
             <p class="snip-lbl">Tip · edición #007</p>
@@ -318,22 +335,6 @@ df = pd.<span class="fn">read_csv</span>(<span class="str">&#x27;data.csv&#x27;<
 df = df.<span class="fn">drop_duplicates</span>().<span class="fn">rename</span>(columns=str.lower)
 df.<span class="fn">to_csv</span>(<span class="str">&#x27;data_clean.csv&#x27;</span>, index=<span class="kw">False</span>)</code></pre>
         <p class="snip-pie">Úsalo para estandarizar archivos CSV de entrada antes de cargarlos en cualquier pipeline de datos, asegurando que los nombres de columnas sean consistentes y eliminando filas vacías. <a href="ediciones/007.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
-      </article>
-      <article class="snip rev" style="transition-delay:200ms">
-        <header class="snip-top">
-          <div style="min-width:0">
-            <p class="snip-lbl">Tip · edición #006</p>
-            <h3>Optimización de memoria en Pandas</h3>
-          </div>
-          <span class="chip">Python</span>
-        </header>
-        <pre><code><span class="kw">def</span> <span class="fn">reduce_mem_usage</span>(df):
-    <span class="kw">for</span> col <span class="kw">in</span> df.columns:
-        col_type = df<span class="str">[col]</span>.dtype
-        <span class="kw">if</span> col_type != object:
-            df<span class="str">[col]</span> = pd.<span class="fn">to_numeric</span>(df<span class="str">[col]</span>, downcast=<span class="str">&#x27;integer&#x27;</span>)
-    <span class="kw">return</span> df</code></pre>
-        <p class="snip-pie">Reduce drásticamente el consumo de RAM al convertir tipos de datos numéricos a su representación más pequeña posible antes de procesar grandes datasets. <a href="ediciones/006.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
       </article></div>
     </div>
   </section>
@@ -346,6 +347,16 @@ df.<span class="fn">to_csv</span>(<span class="str">&#x27;data_clean.csv&#x27;</
       </div>
       <ul class="lista">
       <li class="rev" style="transition-delay:0ms">
+        <a href="ediciones/009.html">
+          <div class="meta"><span class="n">#009</span><span class="f">28 de septiembre, 2026</span></div>
+          <div style="min-width:0">
+            <h3>La era de los agentes autónomos: entre la innovación y el caos</h3>
+            <p>La industria tecnológica está en plena transición hacia los agentes autónomos, con Meta lanzando su plataforma empresarial y Shopify integrando agentes en sus procesos…</p>
+            <span class="flecha">Leer edición →</span>
+          </div>
+        </a>
+      </li>
+      <li class="rev" style="transition-delay:70ms">
         <a href="ediciones/008.html">
           <div class="meta"><span class="n">#008</span><span class="f">21 de septiembre, 2026</span></div>
           <div style="min-width:0">
@@ -355,7 +366,7 @@ df.<span class="fn">to_csv</span>(<span class="str">&#x27;data_clean.csv&#x27;</
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:70ms">
+      <li class="rev" style="transition-delay:140ms">
         <a href="ediciones/007.html">
           <div class="meta"><span class="n">#007</span><span class="f">14 de septiembre, 2026</span></div>
           <div style="min-width:0">
@@ -365,7 +376,7 @@ df.<span class="fn">to_csv</span>(<span class="str">&#x27;data_clean.csv&#x27;</
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:140ms">
+      <li class="rev" style="transition-delay:210ms">
         <a href="ediciones/006.html">
           <div class="meta"><span class="n">#006</span><span class="f">7 de septiembre, 2026</span></div>
           <div style="min-width:0">
@@ -375,7 +386,7 @@ df.<span class="fn">to_csv</span>(<span class="str">&#x27;data_clean.csv&#x27;</
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:210ms">
+      <li class="rev" style="transition-delay:280ms">
         <a href="ediciones/005.html">
           <div class="meta"><span class="n">#005</span><span class="f">31 de agosto, 2026</span></div>
           <div style="min-width:0">
@@ -385,7 +396,7 @@ df.<span class="fn">to_csv</span>(<span class="str">&#x27;data_clean.csv&#x27;</
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:280ms">
+      <li class="rev" style="transition-delay:350ms">
         <a href="ediciones/004.html">
           <div class="meta"><span class="n">#004</span><span class="f">24 de agosto, 2026</span></div>
           <div style="min-width:0">
@@ -395,7 +406,7 @@ df.<span class="fn">to_csv</span>(<span class="str">&#x27;data_clean.csv&#x27;</
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:350ms">
+      <li class="rev" style="transition-delay:420ms">
         <a href="ediciones/003.html">
           <div class="meta"><span class="n">#003</span><span class="f">17 de agosto, 2026</span></div>
           <div style="min-width:0">
