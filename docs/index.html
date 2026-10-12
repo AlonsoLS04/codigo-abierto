@@ -289,6 +289,22 @@ footer{border-top:1px solid var(--line);}
       <article class="snip rev" style="transition-delay:0ms">
         <header class="snip-top">
           <div style="min-width:0">
+            <p class="snip-lbl">Tip · edición #010</p>
+            <h3>Optimización con Vectorización en Python</h3>
+          </div>
+          <span class="chip">Python</span>
+        </header>
+        <pre><code><span class="kw">import</span> numpy <span class="kw">as</span> np
+<span class="cm"># Evita bucles for lentos</span>
+<span class="cm"># En su lugar, usa operaciones vectorizadas</span>
+data = np.<span class="fn">array</span>(<span class="str">[1, 2, 3, 4]</span>)
+resultado = data * <span class="nm">2</span>
+<span class="cm"># Es órdenes de magnitud más rápido en grandes datasets</span></code></pre>
+        <p class="snip-pie">Utiliza siempre bibliotecas como NumPy para operaciones matemáticas sobre arrays en lugar de iterar con bucles; la diferencia en tiempo de ejecución es crítica para el análisis de datos a gran escala. <a href="ediciones/010.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
+      </article>
+      <article class="snip rev" style="transition-delay:100ms">
+        <header class="snip-top">
+          <div style="min-width:0">
             <p class="snip-lbl">Tip · edición #009</p>
             <h3>Validación rápida de Data Drift</h3>
           </div>
@@ -303,7 +319,7 @@ score = <span class="fn">cross_val_score</span>(clf, X_combined, y_labels, cv=<s
 <span class="fn">print</span>(f<span class="str">&#x27;AUC Score: {score}&#x27;</span>)</code></pre>
         <p class="snip-pie">Utiliza un clasificador para intentar distinguir entre tus datos de entrenamiento y los de producción; si el AUC es superior a 0.7, tus datos han cambiado y el modelo requiere reentrenamiento. <a href="ediciones/009.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
       </article>
-      <article class="snip rev" style="transition-delay:100ms">
+      <article class="snip rev" style="transition-delay:200ms">
         <header class="snip-top">
           <div style="min-width:0">
             <p class="snip-lbl">Tip · edición #008</p>
@@ -319,22 +335,6 @@ q = (pl.<span class="fn">scan_csv</span>(<span class="str">&#x27;data.csv&#x27;<
     .<span class="fn">agg</span>(pl.<span class="fn">col</span>(<span class="str">&#x27;monto&#x27;</span>).<span class="fn">sum</span>()))
 <span class="fn">print</span>(q.<span class="fn">collect</span>())</code></pre>
         <p class="snip-pie">Usa &#x27;scan_csv&#x27; en lugar de &#x27;read_csv&#x27; para activar el motor de optimización de consultas de Polars, lo que permite procesar archivos más grandes que la memoria RAM disponible. <a href="ediciones/008.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
-      </article>
-      <article class="snip rev" style="transition-delay:200ms">
-        <header class="snip-top">
-          <div style="min-width:0">
-            <p class="snip-lbl">Tip · edición #007</p>
-            <h3>Limpieza eficiente de CSV</h3>
-          </div>
-          <span class="chip">Python</span>
-        </header>
-        <pre><code><span class="kw">import</span> pandas <span class="kw">as</span> pd
-<span class="cm"># Carga y limpieza basica en una linea</span>
-df = pd.<span class="fn">read_csv</span>(<span class="str">&#x27;data.csv&#x27;</span>).<span class="fn">dropna</span>(how=<span class="str">&#x27;all&#x27;</span>)
-<span class="cm"># Eliminar duplicados y normalizar columnas</span>
-df = df.<span class="fn">drop_duplicates</span>().<span class="fn">rename</span>(columns=str.lower)
-df.<span class="fn">to_csv</span>(<span class="str">&#x27;data_clean.csv&#x27;</span>, index=<span class="kw">False</span>)</code></pre>
-        <p class="snip-pie">Úsalo para estandarizar archivos CSV de entrada antes de cargarlos en cualquier pipeline de datos, asegurando que los nombres de columnas sean consistentes y eliminando filas vacías. <a href="ediciones/007.html" style="color:var(--azul);text-decoration:none">Ver edición →</a></p>
       </article></div>
     </div>
   </section>
@@ -347,6 +347,16 @@ df.<span class="fn">to_csv</span>(<span class="str">&#x27;data_clean.csv&#x27;</
       </div>
       <ul class="lista">
       <li class="rev" style="transition-delay:0ms">
+        <a href="ediciones/010.html">
+          <div class="meta"><span class="n">#010</span><span class="f">12 de octubre, 2026</span></div>
+          <div style="min-width:0">
+            <h3>Meta entra en la liga de los &#x27;frontier models&#x27; con Muse Wonder</h3>
+            <p>Meta ha lanzado Muse Wonder y Muse Wonder Full, sus modelos de IA más potentes hasta la fecha, diseñados para cerrar la brecha técnica con competidores como Claude y…</p>
+            <span class="flecha">Leer edición →</span>
+          </div>
+        </a>
+      </li>
+      <li class="rev" style="transition-delay:70ms">
         <a href="ediciones/009.html">
           <div class="meta"><span class="n">#009</span><span class="f">28 de septiembre, 2026</span></div>
           <div style="min-width:0">
@@ -356,7 +366,7 @@ df.<span class="fn">to_csv</span>(<span class="str">&#x27;data_clean.csv&#x27;</
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:70ms">
+      <li class="rev" style="transition-delay:140ms">
         <a href="ediciones/008.html">
           <div class="meta"><span class="n">#008</span><span class="f">21 de septiembre, 2026</span></div>
           <div style="min-width:0">
@@ -366,7 +376,7 @@ df.<span class="fn">to_csv</span>(<span class="str">&#x27;data_clean.csv&#x27;</
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:140ms">
+      <li class="rev" style="transition-delay:210ms">
         <a href="ediciones/007.html">
           <div class="meta"><span class="n">#007</span><span class="f">14 de septiembre, 2026</span></div>
           <div style="min-width:0">
@@ -376,7 +386,7 @@ df.<span class="fn">to_csv</span>(<span class="str">&#x27;data_clean.csv&#x27;</
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:210ms">
+      <li class="rev" style="transition-delay:280ms">
         <a href="ediciones/006.html">
           <div class="meta"><span class="n">#006</span><span class="f">7 de septiembre, 2026</span></div>
           <div style="min-width:0">
@@ -386,7 +396,7 @@ df.<span class="fn">to_csv</span>(<span class="str">&#x27;data_clean.csv&#x27;</
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:280ms">
+      <li class="rev" style="transition-delay:350ms">
         <a href="ediciones/005.html">
           <div class="meta"><span class="n">#005</span><span class="f">31 de agosto, 2026</span></div>
           <div style="min-width:0">
@@ -396,7 +406,7 @@ df.<span class="fn">to_csv</span>(<span class="str">&#x27;data_clean.csv&#x27;</
           </div>
         </a>
       </li>
-      <li class="rev" style="transition-delay:350ms">
+      <li class="rev" style="transition-delay:420ms">
         <a href="ediciones/004.html">
           <div class="meta"><span class="n">#004</span><span class="f">24 de agosto, 2026</span></div>
           <div style="min-width:0">

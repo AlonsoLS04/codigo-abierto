@@ -1,0 +1,82 @@
+{
+  "numero": "010",
+  "fecha": "2026-10-12",
+  "titulo": "Meta entra en la liga de los 'frontier models' con Muse Wonder",
+  "portada": {
+    "titulo": "Meta entra en la liga de los 'frontier models' con Muse Wonder",
+    "cuerpo": "Meta ha lanzado Muse Wonder y Muse Wonder Full, sus modelos de IA más potentes hasta la fecha, diseñados para cerrar la brecha técnica con competidores como Claude y ChatGPT. Estos modelos destacan por su capacidad superior en tareas complejas como la generación de código y razonamiento avanzado, marcando un giro estratégico tras el lanzamiento de su versión más ligera, Muse Spark.\n\nLa apuesta de Meta busca democratizar el acceso a modelos de alto rendimiento, desafiando el dominio de las plataformas cerradas. Con benchmarks que los sitúan al nivel de los líderes actuales, la compañía intenta consolidar su división de Superinteligencia como un referente en la industria.",
+    "angulo_latam": "Para las empresas en Latinoamérica, esto significa una mayor oferta de modelos 'open frontier' para integrar en sus propios stack tecnológicos, reduciendo la dependencia exclusiva de APIs de pago y facilitando el despliegue de soluciones de IA soberanas con menor latencia.",
+    "enlace": "https://techcrunch.com/2026/10/12/meta-releases-its-first-frontier-model-muse-wonder/",
+    "fuente": "TechCrunch"
+  },
+  "ia": [
+    {
+      "titulo": "Blueprints AI: automatización para la construcción",
+      "cuerpo": "La startup Blueprints AI ha desarrollado software capaz de generar planos de construcción listos para permisos a partir de simples bocetos, PDFs o fotografías. La herramienta asegura el cumplimiento normativo automáticamente, eliminando días de trabajo manual de dibujo técnico.",
+      "angulo_latam": "En un sector tan fragmentado y burocrático como el de la construcción en LATAM, esta tecnología podría reducir significativamente los tiempos de aprobación de proyectos y los errores en la gestión de licencias municipales.",
+      "enlace": "https://techcrunch.com/2026/10/12/this-ai-startup-says-it-can-generate-permit-ready-blueprints-in-minutes/",
+      "fuente": "TechCrunch"
+    },
+    {
+      "titulo": "Anthropic pone freno al abuso contra Claude",
+      "cuerpo": "En una actualización de sus políticas, Anthropic ha vetado expresamente el comportamiento abusivo y cruel hacia su IA, Claude. La empresa busca proteger la integridad de sus modelos ante prácticas de 'bullying' digital que pueden degradar la calidad de las interacciones.",
+      "angulo_latam": "Esto subraya una tendencia global hacia la ética en la IA que las empresas latinoamericanas deben adoptar al implementar políticas de uso interno, asegurando que los empleados mantengan estándares de interacción profesional con sus copilotos digitales.",
+      "enlace": "https://www.marketingdirecto.com/digital-general/digital/ia-no-es-inmune-bullying-anthropic-veta-comportamiento-abusivo-claude",
+      "fuente": "Marketing Directo"
+    }
+  ],
+  "marketing": [
+    {
+      "titulo": "El hambre como motor de marca: Uber Eats y Real Madrid",
+      "cuerpo": "La nueva alianza entre Uber Eats y el Real Madrid utiliza un concepto creativo que apela al 'apetito de victoria'. La campaña busca conectar emocionalmente con la base de fans global mediante una narrativa que vincula la excelencia deportiva con el servicio de entrega a domicilio.",
+      "angulo_latam": "El mercado latinoamericano, con su fuerte pasión por el fútbol, es un terreno fértil para este tipo de activaciones donde las marcas de delivery se integran en el ritual del consumo de contenido deportivo.",
+      "enlace": "https://www.marketingdirecto.com/creacion/campanas-de-marketing/uber-eats-real-madrid-presentan-alianza-patrocinio-hambre-nos-ha-traido-aqui",
+      "fuente": "Marketing Directo"
+    },
+    {
+      "titulo": "Scandit: IA para resolver fricciones en el retail",
+      "cuerpo": "Scandit está aplicando visión por computadora para eliminar las fricciones en la experiencia de compra en tienda física. La IA permite escanear productos y gestionar inventarios en tiempo real, mejorando la eficiencia operativa de los retailers.",
+      "angulo_latam": "Para el retail latinoamericano, que lucha con altos costos operativos y pérdidas de inventario, esta tecnología es una vía crítica para digitalizar la tienda física sin grandes inversiones en hardware propietario.",
+      "enlace": "https://www.marketingdirecto.com/marketing-general/entrevistas/mireia-graells-scandit-inteligencia-artificial-retail",
+      "fuente": "Marketing Directo"
+    }
+  ],
+  "datos": [
+    {
+      "titulo": "LLM Batching: eficiencia en el procesamiento",
+      "cuerpo": "El procesamiento por lotes (batching) en modelos de lenguaje es la clave para escalar aplicaciones. Al igual que un autobús transporta a más personas que varios taxis, el batching permite agrupar solicitudes para optimizar el uso de recursos computacionales.",
+      "angulo_latam": "Para equipos de ingeniería en LATAM que buscan reducir costos de infraestructura en sus despliegues de IA, entender la diferencia entre batching estático, dinámico y continuo es vital para la rentabilidad de sus productos.",
+      "enlace": "https://www.analyticsvidhya.com/blog/2026/10/llm-batching/",
+      "fuente": "Analytics Vidhya"
+    },
+    {
+      "titulo": "EmbeddingGemma 2: multimodality en una sola base",
+      "cuerpo": "La nueva arquitectura permite integrar texto, código, imágenes, video y audio en un mismo espacio vectorial. Esto facilita la creación de motores de búsqueda empresariales que pueden encontrar archivos de código basándose en una descripción de texto o video.",
+      "angulo_latam": "Esto permite a las empresas locales unificar sus silos de información (documentos, correos, videos de reuniones) en un sistema de búsqueda inteligente sin necesidad de múltiples herramientas especializadas.",
+      "enlace": "https://www.analyticsvidhya.com/blog/2026/10/embeddinggemma-2-multimodal-embeddings-guide/",
+      "fuente": "Analytics Vidhya"
+    }
+  ],
+  "automatizacion": [
+    {
+      "titulo": "UiPath Delegate: eliminando el trabajo manual en QA",
+      "cuerpo": "UiPath ha lanzado 'Delegate', una herramienta diseñada para automatizar las tareas repetitivas post-ejecución en pruebas de software. Esto permite a los equipos de QA enfocarse exclusivamente en el triaje y la toma de decisiones críticas.",
+      "antes_despues": "Triage manual de resultados de pruebas y tareas administrativas post-run → automatización de triaje y reporte mediante agentes.",
+      "ahorro": "",
+      "angulo_latam": "La escasez de talento senior en QA en la región hace que herramientas como Delegate sean vitales para maximizar la productividad de los equipos existentes sin aumentar la carga de trabajo manual.",
+      "enlace": "https://www.uipath.com/blog/product-and-updates/uipath-delegate-fixes-testing-busywork-problem",
+      "fuente": "UiPath RSS Feed"
+    }
+  ],
+  "tip_analista": {
+    "titulo": "Optimización con Vectorización en Python",
+    "codigo": "import numpy as np\n# Evita bucles for lentos\n# En su lugar, usa operaciones vectorizadas\ndata = np.array([1, 2, 3, 4])\nresultado = data * 2\n# Es órdenes de magnitud más rápido en grandes datasets",
+    "cuerpo": "Utiliza siempre bibliotecas como NumPy para operaciones matemáticas sobre arrays en lugar de iterar con bucles; la diferencia en tiempo de ejecución es crítica para el análisis de datos a gran escala.",
+    "herramienta": "Python"
+  },
+  "dato": {
+    "cifra": "40%",
+    "contexto": "Porcentaje de C-level executives que aseguran haber operacionalizado IA en sus procesos, aunque solo el 13% logra resultados medibles y escalables."
+  },
+  "para_llevar": "La era de los pilotos de IA ha terminado; el mercado ahora exige ROI medible y escalabilidad real. No te obsesiones con la tecnología de moda, enfócate en los procesos que realmente necesitan ser orquestados y automatizados para impactar el balance final."
+}

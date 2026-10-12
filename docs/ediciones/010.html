@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edición #010 — Meta entra en la liga de los &#x27;frontier models&#x27; con Muse Wonder | Código Abierto</title>
+<meta name="description" content="Meta ha lanzado Muse Wonder y Muse Wonder Full, sus modelos de IA más potentes hasta la fecha, diseñados para cerrar la brecha técnica con…">
+<meta name="author" content="Código Abierto">
+<link rel="canonical" href="https://alonsols04.github.io/codigo-abierto/ediciones/010.html">
+<meta property="og:title" content="Edición #010 — Meta entra en la liga de los &#x27;frontier models&#x27; con Muse Wonder | Código Abierto">
+<meta property="og:description" content="Meta ha lanzado Muse Wonder y Muse Wonder Full, sus modelos de IA más potentes hasta la fecha, diseñados para cerrar la brecha técnica con…">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#12111c; --fg:#f3f2f7; --card:#1d1b2b; --card2:#262338;
+  --muted:#a9a5be; --line:#332f47; --terminal:#0e0d16;
+  --violeta:#9b6cf5; --azul:#4f9dfb;
+  --kw:#c39cf8; --str:#7fe0a8; --fn:#8ec2fb; --cm:#8d88a5;
+  --grad:linear-gradient(120deg,#9b6cf5,#4f9dfb);
+}
+*{box-sizing:border-box;border-color:var(--line);}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font-family:'DM Sans',system-ui,-apple-system,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;line-height:1.6;
+  overflow-x:hidden;max-width:100%;}
+/* Evita que un hijo ancho (codigo largo) estire toda la pagina:
+   los items de grid traen min-width:auto por defecto. */
+.rejilla-2>*,.rejilla-3>*,.rejilla-tip>*,.dos-col>*,.pie-grid>*{min-width:0;}
+h1,h2,h3,p,a,span{overflow-wrap:break-word;}
+h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.03em;
+  line-height:1.12;margin:0;}
+a{color:inherit;}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px;}
+.wrap-sm{max-width:760px;margin:0 auto;padding:0 20px;}
+.grad{background-image:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.muted{color:var(--muted);}
+
+/* Encabezado */
+.top{display:flex;align-items:center;justify-content:space-between;
+  max-width:1120px;margin:0 auto;padding:22px 20px;}
+.marca{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;
+  letter-spacing:-.02em;text-decoration:none;}
+.btn-borde{display:inline-block;border:1px solid var(--line);border-radius:999px;
+  padding:9px 18px;font-size:14px;font-weight:500;color:var(--muted);
+  text-decoration:none;transition:.25s;}
+.btn-borde:hover{border-color:var(--violeta);color:var(--fg);}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:56px 56px;}
+.hero .halo{position:absolute;top:-160px;left:50%;transform:translateX(-50%);
+  width:380px;height:380px;border-radius:50%;background:rgba(155,108,245,.28);
+  filter:blur(120px);pointer-events:none;}
+.hero-in{position:relative;max-width:760px;margin:0 auto;padding:88px 20px;text-align:center;}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:11.5px;text-transform:uppercase;
+  letter-spacing:.3em;color:var(--azul);margin:0;}
+.hero h1{font-size:clamp(42px,9vw,74px);font-weight:700;margin:24px 0 0;}
+.lede{font-size:clamp(17px,2.4vw,20px);color:var(--muted);margin:22px auto 0;max-width:34rem;}
+
+/* Secciones */
+section{scroll-margin-top:24px;}
+.bloque{padding:88px 0;}
+.bloque-alt{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:rgba(38,35,56,.35);}
+.h2{font-size:clamp(27px,4.4vw,38px);font-weight:700;}
+.sub{color:var(--muted);margin:14px 0 0;max-width:34rem;}
+
+/* Tarjetas de temas */
+.rejilla-2{display:grid;gap:18px;margin-top:44px;}
+@media(min-width:640px){.rejilla-2{grid-template-columns:1fr 1fr;}}
+.tarjeta{height:100%;border:1px solid var(--line);background:var(--card);
+  border-radius:18px;padding:26px;transition:border-color .3s;}
+.tarjeta:hover{border-color:rgba(155,108,245,.6);}
+.num{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--violeta);}
+.tarjeta h3{font-size:20px;font-weight:600;margin:16px 0 0;}
+.tarjeta p{font-size:14.5px;color:var(--muted);margin:12px 0 0;}
+
+/* Snippets */
+.rejilla-3{display:grid;gap:18px;margin-top:44px;}
+@media(min-width:1000px){.rejilla-3{grid-template-columns:repeat(3,1fr);}}
+.snip{display:flex;flex-direction:column;height:100%;overflow:hidden;
+  min-width:0;max-width:100%;
+  border:1px solid var(--line);background:var(--card);border-radius:18px;}
+.snip-top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;
+  align-items:center;padding:15px 18px;border-bottom:1px solid var(--line);}
+.snip-lbl{font-size:11px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.18em;color:var(--violeta);margin:0;}
+.snip-top h3{font-size:16px;font-weight:600;margin:5px 0 0;}
+.chip{flex-shrink:0;border:1px solid var(--line);border-radius:999px;padding:4px 12px;
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.05em;color:var(--muted);white-space:nowrap;}
+.snip pre{flex:1;margin:0;padding:18px;background:var(--terminal);
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+  max-width:100%;min-width:0;
+  font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.75;}
+.snip pre code{display:block;min-width:0;}
+.snip-pie{border-top:1px solid var(--line);padding:15px 18px;font-size:13.5px;color:var(--muted);margin:0;}
+.kw{color:var(--kw);} .str{color:var(--str);} .fn{color:var(--fn);}
+.cm{color:var(--cm);font-style:italic;} .nm{color:var(--azul);}
+
+/* Listado de ediciones */
+.lista{list-style:none;margin:44px 0 0;padding:0;border-top:1px solid var(--line);}
+.lista li{border-bottom:1px solid var(--line);}
+.lista a{display:grid;gap:10px;padding:26px 10px;text-decoration:none;transition:background .3s;}
+@media(min-width:640px){.lista a{grid-template-columns:9.5rem minmax(0,1fr);gap:32px;}}
+.lista a:hover{background:rgba(38,35,56,.5);}
+.meta{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--muted);}
+.meta .n{color:var(--violeta);}
+@media(min-width:640px){.meta .f{display:block;margin-top:4px;}}
+.lista h3{font-size:20px;font-weight:600;}
+.lista p{font-size:14.5px;color:var(--muted);margin:9px 0 0;}
+.flecha{display:inline-block;margin-top:12px;font-size:14px;font-weight:500;color:var(--azul);}
+.vacio{margin-top:40px;border:1px solid var(--line);background:var(--card);
+  border-radius:18px;padding:30px;text-align:center;color:var(--muted);}
+
+/* Sobre mí */
+.dos-col{display:grid;gap:36px;}
+@media(min-width:1000px){.dos-col{grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);}}
+.dos-col .prosa{font-size:17.5px;color:var(--muted);margin:0 0 18px;}
+.dos-col .prosa strong{color:var(--fg);font-weight:500;}
+
+/* Formulario */
+.form{width:100%;}
+.form-fila{display:grid;gap:12px;}
+@media(min-width:520px){.form-fila{grid-template-columns:minmax(0,1fr) auto;}}
+.form input{height:50px;width:100%;min-width:0;border:1px solid var(--line);
+  background:var(--card);border-radius:13px;padding:0 16px;font-size:16px;
+  color:var(--fg);font-family:inherit;}
+.form input::placeholder{color:var(--muted);}
+.form input:focus{outline:none;border-color:var(--violeta);
+  box-shadow:0 0 0 3px rgba(155,108,245,.25);}
+.form button{height:50px;flex-shrink:0;border:0;border-radius:13px;padding:0 26px;
+  background-image:var(--grad);color:#fff;font-size:16px;font-weight:600;
+  font-family:inherit;cursor:pointer;transition:.2s;}
+.form button:hover{transform:translateY(-2px);
+  box-shadow:0 24px 60px -28px rgba(155,108,245,.7);}
+.form-nota{margin:12px 0 0;font-size:13.5px;color:var(--muted);}
+.form-nota.err{color:#f87171;} .form-nota.ok{color:var(--azul);}
+
+/* Pie */
+footer{border-top:1px solid var(--line);}
+.pie-grid{display:grid;gap:44px;padding:72px 0;}
+@media(min-width:1000px){.pie-grid{grid-template-columns:1fr 1fr;}}
+.redes{list-style:none;margin:18px 0 0;padding:0;}
+.redes li{margin-bottom:11px;}
+.redes a{font-size:17px;font-weight:500;text-decoration:none;transition:color .25s;}
+.redes a:hover{color:var(--violeta);}
+.copy{border-top:1px solid var(--line);}
+.copy p{max-width:1120px;margin:0 auto;padding:22px 20px;font-size:13.5px;color:var(--muted);}
+
+/* Edición: portada y historias */
+.destacada{border:1px solid rgba(155,108,245,.45);background:var(--card);
+  border-radius:18px;padding:32px;box-shadow:0 0 60px -30px var(--violeta);}
+.et{font-family:'JetBrains Mono',monospace;font-size:11.5px;text-transform:uppercase;
+  letter-spacing:.18em;color:var(--violeta);}
+.destacada h2{font-size:clamp(23px,3.6vw,30px);font-weight:700;margin:12px 0 0;}
+.destacada .prosa{color:var(--muted);margin:16px 0 0;}
+.latam{margin-top:22px;border-left:2px solid var(--azul);
+  background:rgba(38,35,56,.55);border-radius:12px;padding:16px 18px;}
+.latam .t{font-family:'JetBrains Mono',monospace;font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.2em;color:var(--azul);margin:0;}
+.latam p{margin:8px 0 0;font-size:14.5px;color:rgba(243,242,247,.88);line-height:1.65;}
+.leer{display:inline-block;margin-top:22px;font-size:14px;font-weight:500;
+  color:var(--azul);text-decoration:none;}
+.leer:hover{color:var(--violeta);}
+.historia{display:flex;flex-direction:column;height:100%;border:1px solid var(--line);
+  background:var(--card);border-radius:18px;padding:26px;}
+.historia h3{font-size:20px;font-weight:600;margin:12px 0 0;}
+.historia .prosa{font-size:14.5px;color:var(--muted);margin:12px 0 0;}
+.cifra{display:flex;flex-direction:column;justify-content:center;height:100%;
+  border:1px solid var(--line);background:var(--card);border-radius:18px;
+  padding:34px;text-align:center;}
+.cifra .n{font-family:'Space Grotesk',sans-serif;font-size:clamp(44px,8vw,60px);font-weight:700;}
+.cifra p{font-size:14.5px;color:var(--muted);margin:16px 0 0;}
+.llevar{font-size:clamp(19px,3vw,25px);font-style:italic;line-height:1.55;
+  color:rgba(243,242,247,.92);margin:20px 0 0;}
+.rejilla-tip{display:grid;gap:18px;}
+@media(min-width:1000px){.rejilla-tip{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);}}
+
+/* Animación de entrada */
+/* Automatizacion: antes/despues y ahorro */
+.flujo{margin-top:18px;border-left:2px solid #7fe0a8;background:rgba(20,50,38,.35);
+  border-radius:12px;padding:14px 16px;}
+.flujo .t{font-family:'JetBrains Mono',monospace;font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.2em;color:#7fe0a8;margin:0;}
+.flujo p{margin:8px 0 0;font-size:14px;color:rgba(243,242,247,.88);line-height:1.6;}
+.ahorro{display:inline-flex;align-items:center;gap:7px;margin-top:14px;
+  border:1px solid rgba(127,224,168,.4);background:rgba(20,50,38,.3);
+  border-radius:999px;padding:6px 14px;font-size:13px;color:#a8ebc4;}
+.ahorro .et2{font-family:'JetBrains Mono',monospace;font-size:10px;
+  text-transform:uppercase;letter-spacing:.14em;color:#7fe0a8;}
+/* Movil: codigo mas compacto y menos padding lateral */
+@media(max-width:520px){
+  .snip pre{font-size:11.5px;padding:14px;line-height:1.7;}
+  .wrap,.wrap-sm{padding:0 16px;}
+  .tarjeta,.historia,.snip-top,.snip-pie{padding-left:20px;padding-right:20px;}
+  .destacada{padding:24px 20px;}
+  .cifra{padding:28px 20px;}
+  .bloque{padding:64px 0;}
+  .hero-in{padding:64px 16px;}
+  .lista a{padding:22px 4px;}
+}
+.rev{opacity:0;transform:translateY(24px);
+  transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1);}
+.rev.vis{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){.rev{opacity:1;transform:none;transition:none;}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="marca" href="../">Código<span class="grad"> Abierto</span></a>
+  <a class="btn-borde" href="../#ediciones">← Volver al listado</a>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="halo"></div>
+    <div class="hero-in" style="max-width:860px;padding:68px 20px;text-align:left">
+      <div class="rev">
+        <p class="kicker">Edición #010 · 12 de octubre, 2026</p>
+        <h1 style="font-size:clamp(32px,6vw,52px);margin-top:20px">Meta entra en la liga de los &#x27;frontier models&#x27; con Muse Wonder</h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque" style="padding:64px 0">
+    <div class="wrap-sm" style="max-width:860px">
+      <div class="rev">
+        <article class="destacada">
+          <span class="et">Portada</span>
+          <h2>Meta entra en la liga de los &#x27;frontier models&#x27; con Muse Wonder</h2>
+          <p class="prosa">Meta ha lanzado Muse Wonder y Muse Wonder Full, sus modelos de IA más potentes hasta la fecha, diseñados para cerrar la brecha técnica con competidores como Claude y ChatGPT. Estos modelos destacan por su capacidad superior en tareas complejas como la generación de código y razonamiento avanzado, marcando un giro estratégico tras el lanzamiento de su versión más ligera, Muse Spark.</p><p class="prosa">La apuesta de Meta busca democratizar el acceso a modelos de alto rendimiento, desafiando el dominio de las plataformas cerradas. Con benchmarks que los sitúan al nivel de los líderes actuales, la compañía intenta consolidar su división de Superinteligencia como un referente en la industria.</p>
+          <div class="latam">
+            <p class="t">Ángulo LATAM</p>
+            <p>Para las empresas en Latinoamérica, esto significa una mayor oferta de modelos &#x27;open frontier&#x27; para integrar en sus propios stack tecnológicos, reduciendo la dependencia exclusiva de APIs de pago y facilitando el despliegue de soluciones de IA soberanas con menor latencia.</p>
+          </div>
+          <a class="leer" href="https://techcrunch.com/2026/10/12/meta-releases-its-first-frontier-model-muse-wonder/" target="_blank" rel="noopener">
+            Leer más en TechCrunch →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque bloque-alt" style="padding:64px 0">
+    <div class="wrap">
+      <div class="rev"><h2 class="h2" style="font-size:clamp(23px,3.6vw,30px)">Inteligencia artificial</h2></div>
+      <div class="rejilla-2" style="margin-top:32px">
+      <div class="rev" style="transition-delay:0ms">
+        <article class="historia">
+          <span class="et">IA</span>
+          <h3>Blueprints AI: automatización para la construcción</h3>
+          <p class="prosa">La startup Blueprints AI ha desarrollado software capaz de generar planos de construcción listos para permisos a partir de simples bocetos, PDFs o fotografías. La herramienta asegura el cumplimiento normativo automáticamente, eliminando días de trabajo manual de dibujo técnico.</p>
+          
+          
+          <div class="latam">
+            <p class="t">Ángulo LATAM</p>
+            <p>En un sector tan fragmentado y burocrático como el de la construcción en LATAM, esta tecnología podría reducir significativamente los tiempos de aprobación de proyectos y los errores en la gestión de licencias municipales.</p>
+          </div>
+          
+          <a class="leer" href="https://techcrunch.com/2026/10/12/this-ai-startup-says-it-can-generate-permit-ready-blueprints-in-minutes/" target="_blank" rel="noopener">
+            Leer más en TechCrunch →</a>
+        </article>
+      </div>
+      <div class="rev" style="transition-delay:90ms">
+        <article class="historia">
+          <span class="et">IA</span>
+          <h3>Anthropic pone freno al abuso contra Claude</h3>
+          <p class="prosa">En una actualización de sus políticas, Anthropic ha vetado expresamente el comportamiento abusivo y cruel hacia su IA, Claude. La empresa busca proteger la integridad de sus modelos ante prácticas de &#x27;bullying&#x27; digital que pueden degradar la calidad de las interacciones.</p>
+          
+          
+          <div class="latam">
+            <p class="t">Ángulo LATAM</p>
+            <p>Esto subraya una tendencia global hacia la ética en la IA que las empresas latinoamericanas deben adoptar al implementar políticas de uso interno, asegurando que los empleados mantengan estándares de interacción profesional con sus copilotos digitales.</p>
+          </div>
+          
+          <a class="leer" href="https://www.marketingdirecto.com/digital-general/digital/ia-no-es-inmune-bullying-anthropic-veta-comportamiento-abusivo-claude" target="_blank" rel="noopener">
+            Leer más en Marketing Directo →</a>
+        </article>
+      </div></div>
+    </div>
+  </section>
+
+  <section class="bloque" style="padding:64px 0">
+    <div class="wrap">
+      <div class="rev"><h2 class="h2" style="font-size:clamp(23px,3.6vw,30px)">Marketing</h2></div>
+      <div class="rejilla-2" style="margin-top:32px">
+      <div class="rev" style="transition-delay:0ms">
+        <article class="historia">
+          <span class="et">Marketing</span>
+          <h3>El hambre como motor de marca: Uber Eats y Real Madrid</h3>
+          <p class="prosa">La nueva alianza entre Uber Eats y el Real Madrid utiliza un concepto creativo que apela al &#x27;apetito de victoria&#x27;. La campaña busca conectar emocionalmente con la base de fans global mediante una narrativa que vincula la excelencia deportiva con el servicio de entrega a domicilio.</p>
+          
+          
+          <div class="latam">
+            <p class="t">Ángulo LATAM</p>
+            <p>El mercado latinoamericano, con su fuerte pasión por el fútbol, es un terreno fértil para este tipo de activaciones donde las marcas de delivery se integran en el ritual del consumo de contenido deportivo.</p>
+          </div>
+          
+          <a class="leer" href="https://www.marketingdirecto.com/creacion/campanas-de-marketing/uber-eats-real-madrid-presentan-alianza-patrocinio-hambre-nos-ha-traido-aqui" target="_blank" rel="noopener">
+            Leer más en Marketing Directo →</a>
+        </article>
+      </div>
+      <div class="rev" style="transition-delay:90ms">
+        <article class="historia">
+          <span class="et">Marketing</span>
+          <h3>Scandit: IA para resolver fricciones en el retail</h3>
+          <p class="prosa">Scandit está aplicando visión por computadora para eliminar las fricciones en la experiencia de compra en tienda física. La IA permite escanear productos y gestionar inventarios en tiempo real, mejorando la eficiencia operativa de los retailers.</p>
+          
+          
+          <div class="latam">
+            <p class="t">Ángulo LATAM</p>
+            <p>Para el retail latinoamericano, que lucha con altos costos operativos y pérdidas de inventario, esta tecnología es una vía crítica para digitalizar la tienda física sin grandes inversiones en hardware propietario.</p>
+          </div>
+          
+          <a class="leer" href="https://www.marketingdirecto.com/marketing-general/entrevistas/mireia-graells-scandit-inteligencia-artificial-retail" target="_blank" rel="noopener">
+            Leer más en Marketing Directo →</a>
+        </article>
+      </div></div>
+    </div>
+  </section>
+
+  <section class="bloque bloque-alt" style="padding:64px 0">
+    <div class="wrap">
+      <div class="rev"><h2 class="h2" style="font-size:clamp(23px,3.6vw,30px)">Datos</h2></div>
+      <div class="rejilla-2" style="margin-top:32px">
+      <div class="rev" style="transition-delay:0ms">
+        <article class="historia">
+          <span class="et">Datos</span>
+          <h3>LLM Batching: eficiencia en el procesamiento</h3>
+          <p class="prosa">El procesamiento por lotes (batching) en modelos de lenguaje es la clave para escalar aplicaciones. Al igual que un autobús transporta a más personas que varios taxis, el batching permite agrupar solicitudes para optimizar el uso de recursos computacionales.</p>
+          
+          
+          <div class="latam">
+            <p class="t">Ángulo LATAM</p>
+            <p>Para equipos de ingeniería en LATAM que buscan reducir costos de infraestructura en sus despliegues de IA, entender la diferencia entre batching estático, dinámico y continuo es vital para la rentabilidad de sus productos.</p>
+          </div>
+          
+          <a class="leer" href="https://www.analyticsvidhya.com/blog/2026/10/llm-batching/" target="_blank" rel="noopener">
+            Leer más en Analytics Vidhya →</a>
+        </article>
+      </div>
+      <div class="rev" style="transition-delay:90ms">
+        <article class="historia">
+          <span class="et">Datos</span>
+          <h3>EmbeddingGemma 2: multimodality en una sola base</h3>
+          <p class="prosa">La nueva arquitectura permite integrar texto, código, imágenes, video y audio en un mismo espacio vectorial. Esto facilita la creación de motores de búsqueda empresariales que pueden encontrar archivos de código basándose en una descripción de texto o video.</p>
+          
+          
+          <div class="latam">
+            <p class="t">Ángulo LATAM</p>
+            <p>Esto permite a las empresas locales unificar sus silos de información (documentos, correos, videos de reuniones) en un sistema de búsqueda inteligente sin necesidad de múltiples herramientas especializadas.</p>
+          </div>
+          
+          <a class="leer" href="https://www.analyticsvidhya.com/blog/2026/10/embeddinggemma-2-multimodal-embeddings-guide/" target="_blank" rel="noopener">
+            Leer más en Analytics Vidhya →</a>
+        </article>
+      </div></div>
+    </div>
+  </section>
+
+  <section class="bloque" style="padding:64px 0">
+    <div class="wrap">
+      <div class="rev"><h2 class="h2" style="font-size:clamp(23px,3.6vw,30px)">Automatización</h2></div>
+      <div class="rejilla-2" style="margin-top:32px">
+      <div class="rev" style="transition-delay:0ms">
+        <article class="historia">
+          <span class="et">Automatización</span>
+          <h3>UiPath Delegate: eliminando el trabajo manual en QA</h3>
+          <p class="prosa">UiPath ha lanzado &#x27;Delegate&#x27;, una herramienta diseñada para automatizar las tareas repetitivas post-ejecución en pruebas de software. Esto permite a los equipos de QA enfocarse exclusivamente en el triaje y la toma de decisiones críticas.</p>
+          
+          <div class="flujo">
+            <p class="t">De manual a automático</p>
+            <p>Triage manual de resultados de pruebas y tareas administrativas post-run → automatización de triaje y reporte mediante agentes.</p>
+          </div>
+          
+          <div class="latam">
+            <p class="t">Ángulo LATAM</p>
+            <p>La escasez de talento senior en QA en la región hace que herramientas como Delegate sean vitales para maximizar la productividad de los equipos existentes sin aumentar la carga de trabajo manual.</p>
+          </div>
+          
+          <a class="leer" href="https://www.uipath.com/blog/product-and-updates/uipath-delegate-fixes-testing-busywork-problem" target="_blank" rel="noopener">
+            Leer más en UiPath RSS Feed →</a>
+        </article>
+      </div></div>
+    </div>
+  </section>
+
+  <section class="bloque bloque-alt" style="padding:64px 0">
+    <div class="wrap rejilla-tip">
+        <div class="rev">
+          <article class="snip">
+            <header class="snip-top">
+              <div style="min-width:0">
+                <p class="snip-lbl">Tip del analista</p>
+                <h3>Optimización con Vectorización en Python</h3>
+              </div>
+              <span class="chip">Python</span>
+            </header>
+            <pre><code><span class="kw">import</span> numpy <span class="kw">as</span> np
+<span class="cm"># Evita bucles for lentos</span>
+<span class="cm"># En su lugar, usa operaciones vectorizadas</span>
+data = np.<span class="fn">array</span>(<span class="str">[1, 2, 3, 4]</span>)
+resultado = data * <span class="nm">2</span>
+<span class="cm"># Es órdenes de magnitud más rápido en grandes datasets</span></code></pre>
+            <p class="snip-pie">Utiliza siempre bibliotecas como NumPy para operaciones matemáticas sobre arrays en lugar de iterar con bucles; la diferencia en tiempo de ejecución es crítica para el análisis de datos a gran escala.</p>
+          </article>
+        </div>
+        <div class="rev" style="transition-delay:100ms">
+          <div class="cifra">
+            <p class="n grad">40%</p>
+            <p>Porcentaje de C-level executives que aseguran haber operacionalizado IA en sus procesos, aunque solo el 13% logra resultados medibles y escalables.</p>
+          </div>
+        </div></div>
+  </section>
+
+  <section class="bloque" style="padding:72px 0">
+    <div class="wrap-sm" style="text-align:center">
+      <div class="rev">
+        <p class="kicker">Para llevar</p>
+        <p class="llevar">La era de los pilotos de IA ha terminado; el mercado ahora exige ROI medible y escalabilidad real. No te obsesiones con la tecnología de moda, enfócate en los procesos que realmente necesitan ser orquestados y automatizados para impactar el balance final.</p>
+        <p style="margin-top:36px"><a class="btn-borde" href="../#ediciones">← Volver al listado</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque" style="padding:64px 0">
+    <div class="wrap">
+      <div class="rev"><h2 class="h2" style="font-size:clamp(21px,3.2vw,27px)">Otras ediciones</h2></div>
+      <ul class="lista" style="margin-top:28px">
+        <li class="rev">
+          <a href="009.html">
+            <div class="meta"><span class="n">#009</span><span class="f">28 de septiembre, 2026</span></div>
+            <div style="min-width:0"><h3>La era de los agentes autónomos: entre la innovación y el caos</h3></div>
+          </a>
+        </li>
+        <li class="rev">
+          <a href="008.html">
+            <div class="meta"><span class="n">#008</span><span class="f">21 de septiembre, 2026</span></div>
+            <div style="min-width:0"><h3>El fin de la contabilidad manual y el despertar de los agentes autónomos</h3></div>
+          </a>
+        </li>
+        <li class="rev">
+          <a href="007.html">
+            <div class="meta"><span class="n">#007</span><span class="f">14 de septiembre, 2026</span></div>
+            <div style="min-width:0"><h3>La nueva era de Siri: ¿Apple finalmente domina la IA?</h3></div>
+          </a>
+        </li>
+        <li class="rev">
+          <a href="006.html">
+            <div class="meta"><span class="n">#006</span><span class="f">7 de septiembre, 2026</span></div>
+            <div style="min-width:0"><h3>NVIDIA adquiere Hugging Face: el nuevo mapa de la IA abierta</h3></div>
+          </a>
+        </li>
+        <li class="rev">
+          <a href="005.html">
+            <div class="meta"><span class="n">#005</span><span class="f">31 de agosto, 2026</span></div>
+            <div style="min-width:0"><h3>El fin de una era en Apple: Tim Cook cede el mando</h3></div>
+          </a>
+        </li>
+        <li class="rev">
+          <a href="004.html">
+            <div class="meta"><span class="n">#004</span><span class="f">24 de agosto, 2026</span></div>
+            <div style="min-width:0"><h3>Sam Altman admite que la IA no está transformando la economía tan rápido como esperaba</h3></div>
+          </a>
+        </li></ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap pie-grid" style="padding:56px 0">
+    <div class="rev">
+      <h2 class="h2" style="font-size:clamp(21px,3.2vw,27px)">Únete a <span class="grad">Código Abierto</span></h2>
+      <p class="sub">IA, datos y marketing en tu correo cada lunes por la mañana.</p>
+      <div style="max-width:28rem;margin-top:24px">
+<form class="form" data-activo="0" novalidate>
+  <div class="form-fila">
+    <label for="email-edicion" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Correo electrónico</label>
+    <input id="email-edicion" name="email" type="email" inputmode="email" autocomplete="email" placeholder="tu@correo.com">
+    <button type="submit">Suscribirme</button>
+  </div>
+  <p class="form-nota">Sin spam. Cancela cuando quieras.</p>
+</form></div>
+    </div>
+  </div>
+  <div class="copy"><p>© 2026 Código Abierto. Hecho desde LATAM.</p></div>
+</footer>
+<script>
+(function(){
+  var els=document.querySelectorAll('.rev');
+  if(!('IntersectionObserver' in window)){
+    els.forEach(function(e){e.classList.add('vis');});return;
+  }
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(x){
+      if(x.isIntersecting){x.target.classList.add('vis');io.unobserve(x.target);}
+    });
+  },{threshold:.12,rootMargin:'0px 0px -60px 0px'});
+  els.forEach(function(e){io.observe(e);});
+})();
+
+(function(){
+  var RE=/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+  document.querySelectorAll('form.form').forEach(function(f){
+    var input=f.querySelector('input'), nota=f.querySelector('.form-nota');
+    var base=nota.textContent, activo=f.getAttribute('data-activo')==='1';
+    f.addEventListener('submit',function(ev){
+      if(!RE.test((input.value||'').trim())){
+        ev.preventDefault();
+        nota.className='form-nota err';
+        nota.textContent='Ingresa un correo válido, por ejemplo: nombre@dominio.com';
+        return;
+      }
+      if(!activo){
+        ev.preventDefault();
+        nota.className='form-nota ok';
+        nota.textContent='Las suscripciones por correo abren pronto. Por ahora, guarda esta página: cada lunes hay edición nueva.';
+        input.value='';
+        return;
+      }
+      nota.className='form-nota ok';
+      nota.textContent='Enviando...';
+    });
+    input.addEventListener('input',function(){
+      nota.className='form-nota'; nota.textContent=base;
+    });
+  });
+})();
+</script>
+</body>
+</html>

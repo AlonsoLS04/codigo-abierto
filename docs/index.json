@@ -1,5 +1,19 @@
 [
   {
+    "numero": "010",
+    "fecha": "2026-10-12",
+    "titulo": "Meta entra en la liga de los 'frontier models' con Muse Wonder",
+    "resumen": "Meta ha lanzado Muse Wonder y Muse Wonder Full, sus modelos de IA más potentes hasta la fecha, diseñados para cerrar la brecha técnica con competidores como Claude y…",
+    "tip": {
+      "titulo": "Optimización con Vectorización en Python",
+      "herramienta": "Python",
+      "codigo": "import numpy as np\n# Evita bucles for lentos\n# En su lugar, usa operaciones vectorizadas\ndata = np.array([1, 2, 3, 4])\nresultado = data * 2\n# Es órdenes de magnitud más rápido en grandes datasets",
+      "cuerpo": "Utiliza siempre bibliotecas como NumPy para operaciones matemáticas sobre arrays en lugar de iterar con bucles; la diferencia en tiempo de ejecución es crítica para el análisis de datos a gran escala."
+    },
+    "url_json": "https://alonsols04.github.io/codigo-abierto/ediciones/010.json",
+    "url_html": "https://alonsols04.github.io/codigo-abierto/ediciones/010.html"
+  },
+  {
     "numero": "009",
     "fecha": "2026-09-28",
     "titulo": "La era de los agentes autónomos: entre la innovación y el caos",
