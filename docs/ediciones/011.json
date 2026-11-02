@@ -1,0 +1,82 @@
+{
+  "numero": "011",
+  "fecha": "2026-11-02",
+  "titulo": "El laberinto de la IA: ¿Productividad o espejismo?",
+  "portada": {
+    "titulo": "El laberinto de la IA: ¿Productividad o espejismo?",
+    "cuerpo": "Mientras el despliegue de agentes de IA se acelera, los datos de Gartner revelan una realidad incómoda: solo el 3% de las organizaciones están logrando objetivos reales de productividad con estas herramientas. El entusiasmo inicial está chocando con la fricción operativa de la implementación a gran escala.\n\nEl problema no es la capacidad del modelo, sino la falta de una arquitectura de integración sólida. Las empresas que logran resultados son aquellas que ven la IA no como un chatbot, sino como un motor de orquestación integrado en sus sistemas core, superando la etapa de los pilotos aislados.",
+    "angulo_latam": "En Latinoamérica, donde la digitalización empresarial aún busca eficiencia operativa, este dato es una advertencia para no caer en el 'efecto FOMO' y priorizar la infraestructura sobre la experimentación vacía.",
+    "enlace": "https://www.marketingdirecto.com/anunciantes-general/publicaciones/ruido-nueces-productividad-asociada-ia-florece-empresas",
+    "fuente": "Marketing Directo"
+  },
+  "ia": [
+    {
+      "titulo": "La carrera por la soberanía espacial con IA",
+      "cuerpo": "Google ha marcado un hito al ejecutar modelos de IA directamente en órbita. Este avance sugiere un futuro donde el procesamiento de datos críticos no dependerá de la latencia terrestre, abriendo nuevas posibilidades para la gestión de infraestructura global desde el espacio.",
+      "angulo_latam": "Para el sector logístico y agroindustrial de Latam, el acceso a datos en tiempo real procesados en órbita podría optimizar cadenas de suministro y monitoreo de recursos con una precisión hasta ahora inalcanzable.",
+      "enlace": "https://www.xataka.com/robotica-e-ia/google-ha-dado-paso-clave-centros-datos-espaciales-acaba-ejecutar-ia-orbita",
+      "fuente": "Xataka"
+    },
+    {
+      "titulo": "OpenAI y el blindaje de la red eléctrica",
+      "cuerpo": "OpenAI ha lanzado su 'Grid Protectors Program', una iniciativa para liberar hasta 1,000 megavatios durante emergencias climáticas. Es un movimiento estratégico para mitigar el impacto energético de sus centros de datos y mejorar su imagen pública.",
+      "angulo_latam": "La crisis energética es un cuello de botella para cualquier proyecto de IA en la región. La necesidad de modelos de colaboración público-privada para la gestión de energía será crucial para los centros de datos que se instalen en países como Chile o México.",
+      "enlace": "https://www.theverge.com/ai-artificial-intelligence/1024604/openai-data-center-grid-protection-program",
+      "fuente": "The Verge"
+    }
+  ],
+  "marketing": [
+    {
+      "titulo": "El abismo del tráfico web y la IA",
+      "cuerpo": "El tráfico web de los 10,000 dominios principales ha caído un 10% desde el lanzamiento de ChatGPT. La IA no solo crea contenido, sino que está secuestrando la atención y el tráfico que antes fluía hacia los sitios web.",
+      "angulo_latam": "Las empresas latinoamericanas deben pivotar su estrategia de SEO tradicional hacia el 'GEO' (Generative Engine Optimization) para asegurar que su marca sea citada por los modelos de lenguaje antes de que el tráfico desaparezca por completo.",
+      "enlace": "https://www.marketingdirecto.com/anunciantes-general/publicaciones/trafico-web-pega-fuerte-batacazo-verdugo-esta-siendo-ia",
+      "fuente": "Marketing Directo"
+    },
+    {
+      "titulo": "La paradoja de la estrategia IA",
+      "cuerpo": "Aunque casi todas las empresas reconocen la importancia de estar presentes en la IA, solo el 40% tiene una estrategia formal. Existe una brecha clara entre la intención ejecutiva y la capacidad técnica para ejecutarla.",
+      "angulo_latam": "El mercado latinoamericano suele ser un 'seguidor rápido'. Esta cifra sugiere que hay una ventana de oportunidad para que las agencias locales asesoren en la creación de estrategias de visibilidad en modelos generativos, un terreno aún virgen en la región.",
+      "enlace": "https://www.marketingdirecto.com/imprescindibles/inteligencia-artificial/empresas-geo-posicionamiento-wpp-cocktail",
+      "fuente": "Marketing Directo"
+    }
+  ],
+  "datos": [
+    {
+      "titulo": "Errores silenciosos en pipelines de datos",
+      "cuerpo": "Existen errores de datos que superan cualquier validación de nulos o esquemas. La detección temprana requiere un enfoque más profundo en la lógica de negocio que en la integridad técnica.",
+      "angulo_latam": "En equipos de BI locales, la dependencia de herramientas 'no-code' a veces oculta estos errores. Es vital auditar la lógica de transformación más allá de la validación automática de herramientas.",
+      "enlace": "https://www.kdnuggets.com/silent-data-errors-that-survive-every-cleaning-pipeline",
+      "fuente": "KDnuggets"
+    },
+    {
+      "titulo": "Credit Risk: ¿Qué medimos realmente?",
+      "cuerpo": "El análisis de riesgo crediticio se centra a menudo en métricas de pérdida sin entender la dinámica del capital bancario. La clave está en la relación entre PD, LGD y EAD.",
+      "angulo_latam": "Para las fintechs de la región, refinar estos modelos es la diferencia entre la rentabilidad y la quiebra. Un análisis de datos robusto aquí es el activo más valioso de cualquier startup financiera.",
+      "enlace": "https://towardsdatascience.com/credit-risk-what-are-we-actually-measuring/",
+      "fuente": "Towards Data Science"
+    }
+  ],
+  "automatizacion": [
+    {
+      "titulo": "Eliminando el 'busywork' en pruebas de software",
+      "cuerpo": "UiPath ha presentado 'Delegate', una herramienta diseñada para automatizar la clasificación de errores y tareas repetitivas post-ejecución en pruebas de software, permitiendo a los ingenieros enfocarse en la toma de decisiones de calidad.",
+      "antes_despues": "Triage manual de resultados de pruebas tras cada ejecución → automatización de clasificación y priorización por agentes.",
+      "ahorro": "",
+      "angulo_latam": "El costo de oportunidad de tener desarrolladores senior haciendo tareas administrativas es muy alto en Latam; automatizar este flujo libera talento para escalar productos regionales más rápido.",
+      "enlace": "https://www.uipath.com/blog/product-and-updates/uipath-delegate-fixes-testing-busywork-problem",
+      "fuente": "UiPath"
+    }
+  ],
+  "tip_analista": {
+    "titulo": "Limpieza eficiente con Pandas",
+    "codigo": "import pandas as pd\n# Eliminar duplicados y rellenar valores nulos\ndf = df.drop_duplicates()\ndf['valor'] = df['valor'].fillna(df['valor'].median())\n# Convertir tipos de datos para ahorrar memoria\ndf['categoria'] = df['categoria'].astype('category')",
+    "cuerpo": "Utilizar el tipo 'category' en columnas con pocos valores únicos reduce drásticamente el uso de RAM en datasets grandes. Haz esto siempre antes de procesar modelos de ML.",
+    "herramienta": "Python"
+  },
+  "dato": {
+    "cifra": "3%",
+    "contexto": "Solo este porcentaje de empresas ha logrado alcanzar sus objetivos de productividad vinculados a la IA."
+  },
+  "para_llevar": "La era del 'juguete' con la IA ha terminado. Si tu empresa aún no tiene una estrategia de datos clara y una arquitectura de integración que sostenga a sus agentes, estás quemando presupuesto en promesas. Enfócate en resolver el flujo de trabajo, no en el modelo de moda."
+}

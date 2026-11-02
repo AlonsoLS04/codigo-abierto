@@ -1,5 +1,19 @@
 [
   {
+    "numero": "011",
+    "fecha": "2026-11-02",
+    "titulo": "El laberinto de la IA: ¿Productividad o espejismo?",
+    "resumen": "Mientras el despliegue de agentes de IA se acelera, los datos de Gartner revelan una realidad incómoda: solo el 3% de las organizaciones están logrando objetivos reales…",
+    "tip": {
+      "titulo": "Limpieza eficiente con Pandas",
+      "herramienta": "Python",
+      "codigo": "import pandas as pd\n# Eliminar duplicados y rellenar valores nulos\ndf = df.drop_duplicates()\ndf['valor'] = df['valor'].fillna(df['valor'].median())\n# Convertir tipos de datos para ahorrar memoria\ndf['categoria'] = df['categoria'].astype('category')",
+      "cuerpo": "Utilizar el tipo 'category' en columnas con pocos valores únicos reduce drásticamente el uso de RAM en datasets grandes. Haz esto siempre antes de procesar modelos de ML."
+    },
+    "url_json": "https://alonsols04.github.io/codigo-abierto/ediciones/011.json",
+    "url_html": "https://alonsols04.github.io/codigo-abierto/ediciones/011.html"
+  },
+  {
     "numero": "010",
     "fecha": "2026-10-12",
     "titulo": "Meta entra en la liga de los 'frontier models' con Muse Wonder",
